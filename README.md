@@ -6,27 +6,36 @@
 
 ## Project Description
 ### Purpose
-Our project is a modified version of a word hunt game implemented in C++. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is typically played on a rectangular grid and is a popular pastime for word puzzle enthusiasts.
+Our project is a modified version of a word hunt game implemented in C++. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is popular for word puzzle enthusiasts and is commonly played on the app GamePigeon. 
 
 ### Why is it important or interesting to you?
-We chose this project because it is a fun and challenging game that requires a combination of language skills and logical reasoning. It also allows us to apply our knowledge of data structures and algorithms to create an efficient solution for finding the hidden words in the grid.
+We were drawn to this project due to its engaging and thought-provoking nature, which blends language skills and logical reasoning. As avid players of this game for several years, we recognized its popularity and complexity, yet noticed a lack of user control and basic features in existing Word Hunt applications. Our goal was to develop a program that caters to fellow Word Hunt enthusiasts, while also providing the flexibility to simplify the game for beginners. By creating a user-friendly interface with customizable settings, we aimed to provide a satisfying experience for all levels of players.
 
 ### Languages, Tools, and Technologies
 * **Microsoft Visual Studio Code**
-   * This will be the integrated development environment (IDE) used by all project members for editing and debugging code.
+   * This will be the integrated development environment (IDE) used by all project members for editing and debugging code
 * **C++**
    * The backend of the project
 * **Git**
-   * This version control system will be used to track changes to the project codebase and facilitate collaboration among team members.
+   * This version control system will be used to track changes to the project codebase and facilitate collaboration among team members
 * **Ncurses**
-   * This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game.
+   * This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game
 
 ### What will be the input/output of your project?
-The game's input comprises a rectangular grid of random letters with dimensions specified by the user and a list of words to search for within the grid. The output includes the game board with letters, where the hidden words are highlighted, indicating where the words are located. The player must look carefully and search for words in all directions to find them. The output also includes a message indicating whether the player has won or lost the game and the time taken by the player to complete the game
+The game's input comprises a rectangular grid of random letters with dimensions, time amount, and other aspects specified by the user. The output includes the game board with letters, the timer, and the palyer's current score. 
 
 ### Features
-In addition to the core gameplay mechanics of finding hidden words in a grid of random letters, our modified word hunt game will also offer various features to enhance the player's experience and add complexity to the project. One of these features is the ability for the player to choose the size of the game board. This allows players to adjust the difficulty of the game by selecting a smaller or larger board size, depending on their preference or skill level. Another feature is the implementation of mods that can be applied to the game, such as only allowing a certain amount of letter words to be found. This adds an additional challenge for players, requiring them to carefully consider their search strategy and focus on finding specific types of words.The project will also provide the ability to edit various aspects of the game, such as the time limit for completing the puzzle. This allows players to tailor the game to their own preferences and play style.
-
+* **Customization**
+    * Choose the dimensions of the game board
+    * Only Allowing Certain Length Words
+    * Setting timer
+    * Custom word lists
+* **Challenge**
+    * Score multiplier
+    * Power-ups
+* **Enhancements**
+    * Hint system
+    * Custom Sound effects
  
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
