@@ -1,30 +1,29 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10951477&assignment_repo_type=AssignmentRepo)
- > As you complete each section you **must** remove the prompt text. Every *turnin* of this project includes points for formatting of this README so keep it clean and keep it up to date. 
- > Prompt text is any lines beginning with "\>"
- > Replace anything between \<...\> with your project specifics and remove angle brackets. For example, you need to name your project and replace the header right below this line with that title (no angle brackets). 
-# \<Project title\>
- > Your author list below should include links to all members GitHub (remove existing author).
- 
- > Authors: \<[Jeffrey McDaniel](https://github.com/jmcda001)\>
 
- > You will be forming a group of **FOUR** students and working on an interesting project. The project has 4 phases, each one with specific requirements. A list of proposed project ideas that have been successful in previous quarters is listed in the project specifications document on Canvas. You can select an idea from the list and start thinking about the features you will implement. If you want to propose your own original idea, you will have to contact your instructor to discuss the project and obtain written permission before you submit your project proposal (Phase 1). The project work should be divided almost equally among team members. You can of course help each other, but it needs to be clear who will be responsible for which features. Additionally, you are expected to follow Scrum patterns, specifically the use of a Scrum (Project) board, Sprints, and Scrum meetings.
+# Modded Word Hunt
 
- > ## Expectations
- > * The backend of your project should be implemented in C++. If you wish to choose anoher programming language (e.g. Java, Python), please discuss with your lab TA to obtain permission.
- > * You can incorporate additional technologies/tools but they must be approved (in writing) by the instructor or the TA.
- > * Each member of the group **must** be committing code regularly and make sure their code is correctly attributed to them. We will be checking attributions to determine if there was equal contribution to the project.
- > * **Each member of the group must actively participate in the Github Project board, writing unit tests, and reviewing commited code.**
-> * All project phases are to be submitted to this GitHub repository. You should modify this README file to reflect the different phases of the project. In addition, you should regularly hold sprint meetings with your group. You will need to hold two to three scrum/check-in meetings with your lab TA/reader at different times in addition to the final demo.
+ > Authors: \<[Alex Yen](https://github.com/Alexyen04)\> \<[Freddy Song](https://github.com/MrFrooty)\> \<[Michael Chen](https://github.com/mchen04)\> \<[Sazen Shakya](https://github.com/sshakya03)\>
 
 ## Project Description
- > Your project description should summarize the project you are proposing. Be sure to include:
- > * Why is it important or interesting to you?
- > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
- > * What will be the input/output of your project?
- > * What are the features that the project provides?
- > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
- > 
- > You also need to set up an empty project board using GitHub projects (board view). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added.
+### Project Description:
+Our project is a modified version of a word hunt game implemented in C++. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is typically played on a rectangular grid and is a popular pastime for word puzzle enthusiasts.
+
+### Why is it important or interesting to you?
+We chose this project because it is a fun and challenging game that requires a combination of language skills and logical reasoning. It also allows us to apply our knowledge of data structures and algorithms to create an efficient solution for finding the hidden words in the grid.
+
+### Languages, Tools, and Technologies
+Microsoft Visual Studio Code: This will be the integrated development environment (IDE) used by all project members for editing and debugging code.
+C++: This programming language will serve as the backbone of the project, responsible for rendering JavaScript, performing algorithms for recommendations, and interacting with an online database through a command line main menu.
+Git: This version control system will be used to track changes to the project codebase and facilitate collaboration among team members.
+Ncurses: This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game.
+
+### What will be the input/output of your project?
+The game's input comprises a rectangular grid of random letters with dimensions specified by the user and a list of words to search for within the grid. The output includes the game board with letters, where the hidden words are highlighted, indicating where the words are located. The player must look carefully and search for words in all directions to find them. The output also includes a message indicating whether the player has won or lost the game and the time taken by the player to complete the game
+
+### Features
+In addition to the core gameplay mechanics of finding hidden words in a grid of random letters, our modified word hunt game will also offer various features to enhance the player's experience and add complexity to the project. One of these features is the ability for the player to choose the size of the game board. This allows players to adjust the difficulty of the game by selecting a smaller or larger board size, depending on their preference or skill level. Another feature is the implementation of mods that can be applied to the game, such as only allowing a certain amount of letter words to be found. This adds an additional challenge for players, requiring them to carefully consider their search strategy and focus on finding specific types of words.The project will also provide the ability to edit various aspects of the game, such as the time limit for completing the puzzle. This allows players to tailor the game to their own preferences and play style.
+
+ 
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
  > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
