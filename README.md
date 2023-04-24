@@ -5,17 +5,21 @@
  > Authors: \<[Alex Yen](https://github.com/Alexyen04)\> \<[Freddy Song](https://github.com/MrFrooty)\> \<[Michael Chen](https://github.com/mchen04)\> \<[Sazen Shakya](https://github.com/sshakya03)\>
 
 ## Project Description
-### Project Description:
+### Purpose
 Our project is a modified version of a word hunt game implemented in C++. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is typically played on a rectangular grid and is a popular pastime for word puzzle enthusiasts.
 
 ### Why is it important or interesting to you?
 We chose this project because it is a fun and challenging game that requires a combination of language skills and logical reasoning. It also allows us to apply our knowledge of data structures and algorithms to create an efficient solution for finding the hidden words in the grid.
 
 ### Languages, Tools, and Technologies
-Microsoft Visual Studio Code: This will be the integrated development environment (IDE) used by all project members for editing and debugging code.
-C++: This programming language will serve as the backbone of the project, responsible for rendering JavaScript, performing algorithms for recommendations, and interacting with an online database through a command line main menu.
-Git: This version control system will be used to track changes to the project codebase and facilitate collaboration among team members.
-Ncurses: This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game.
+* **Microsoft Visual Studio Code**
+   * This will be the integrated development environment (IDE) used by all project members for editing and debugging code.
+* **C++**
+   * The backend of the project
+* **Git**
+   * This version control system will be used to track changes to the project codebase and facilitate collaboration among team members.
+* **Ncurses**
+   * This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game.
 
 ### What will be the input/output of your project?
 The game's input comprises a rectangular grid of random letters with dimensions specified by the user and a list of words to search for within the grid. The output includes the game board with letters, where the hidden words are highlighted, indicating where the words are located. The player must look carefully and search for words in all directions to find them. The output also includes a message indicating whether the player has won or lost the game and the time taken by the player to complete the game
