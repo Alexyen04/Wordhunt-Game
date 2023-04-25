@@ -6,25 +6,29 @@
 
 ## Project Description
 ### Purpose
-Our project is a modified version of a word hunt game implemented in C++. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is popular for word puzzle enthusiasts and is commonly played on the app GamePigeon. 
+Our project is a modified version of a word hunt game implemented in C++ to create a satisfying experience for all levels of players. The objective of the game is to find all the words hidden in a grid of random letters. The words can be placed horizontally, vertically, or diagonally and in both forward and backward directions. The game is popular for word puzzle enthusiasts and is commonly played on the app GamePigeon. 
 
 ### Importance/Significance
-We were drawn to this project due to its engaging and thought-provoking nature, which blends language skills and logical reasoning. As avid players of this game for several years, we recognized its popularity and complexity, yet noticed a lack of user control and basic features in existing Word Hunt applications. Our goal was to develop a program that caters to fellow Word Hunt enthusiasts, while also providing the flexibility to simplify the game for beginners. By creating a user-friendly interface with customizable settings, we aimed to provide a satisfying experience for all levels of players.
+We were drawn to this project due to its engaging and thought-provoking nature, which blends language skills and logical reasoning. As avid players of this game for several years, we recognized its popularity and complexity, yet noticed a lack of user control and basic features in existing Word Hunt applications. Our goal was to develop a program that caters to fellow Word Hunt enthusiasts, while also providing the flexibility to simplify the game for beginners.
 
 ### Languages, Tools, and Technologies
-* **Microsoft Visual Studio Code**
-   * This will be the integrated development environment (IDE) used by all project members for editing and debugging code
 * **C++**
    * The backend of the project
+* **CMake**
+   * Linux tool which allows us to compile C++ code into executable programs 
 * **Git**
    * This version control system will be used to track changes to the project codebase and facilitate collaboration among team members
+* **Microsoft Visual Studio Code**
+   * This will be the integrated development environment (IDE) used by all project members for editing and debugging code
 * **Ncurses**
    * This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game
+* **Valgrind**
+   * Linux tool to detects errors and memory management issues including memory leaks
 
 ### Input/Output
-The game's input comprises a rectangular grid of random letters with dimensions, time amount, and other aspects specified by the user. The output includes the game board with letters, the timer, and the palyer's current score. 
+The game input is a customizable grid of letters, with parameters like dimensions, time limit, and word length specified by the user. Features like custom word lists, power-ups, and score multipliers make the game challenging and exciting. The game's output includes the game board, timer, and score, along with immediate feedback on word selection and progress tracking. The output is highly interactive and engaging, providing a personalized and addictive gaming experience for all players.
 
-### Features
+### Added Features
 * **Customization**
     * Choose the dimensions of the game board
     * Only Allowing Certain Length Words
