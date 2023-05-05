@@ -2,7 +2,7 @@
 
 # Modded Word Hunt
 
- > Authors: \[Alex Yen](https://github.com/Alexyen04)\ \[Freddy Song](https://github.com/MrFrooty)\ \[Michael Chen](https://github.com/mchen04)\ \[Sazen Shakya](https://github.com/sshakya03)\
+> Authors: [Alex Yen](https://github.com/Alexyen04) [Freddy Song](https://github.com/MrFrooty) [Michael Chen](https://github.com/mchen04) [Sazen Shakya](https://github.com/sshakya03)
 
 ## Project Description
 ### Purpose
