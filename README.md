@@ -48,7 +48,12 @@ The game input is a customizable grid of letters, with parameters like dimension
 The main purpose of this navigational diagram is to provide a visual map of the user's journey through the game. There consists of multiple screens, with lines showing how to move between them. The contents of each screen are listed in each rectangle. 
 
 ### Screen Layouts
-> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs, expected output, and buttons (if applicable). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
+![Screen Layout Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/9c7fb67238540d7e6033ec9ce54fd0e0f603e365/SCREEN_LAYOUT.png)
+* Menu Screen (Top-Left) has buttons which allow one to play or access the settings screen
+* Settings Screen (Top-Right) has buttons and input boxes which allow one to change various settings. Has a return button to go back to Menu Screen.
+* Word Hunt Screen (Bottom-Left) has the game board where user will play
+* Score Screen (Bottom-Right) has user total score and a list of words with their point values. Has two buttons, one to return to the Menu screen and one to quit the applicaiton
+
 
 ## Class Diagram
 ![UML Class Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/9d57500334373082892e32a1b3661abc9e8ec1ea/UML_DIAGRAM.png)
