@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include "Button.h"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");

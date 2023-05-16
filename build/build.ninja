@@ -56,6 +56,13 @@ build CMakeFiles/WordHunt.dir/main.cpp.o: CXX_COMPILER__WordHunt_unscanned_Debug
   OBJECT_DIR = CMakeFiles/WordHunt.dir
   OBJECT_FILE_DIR = CMakeFiles/WordHunt.dir
 
+build CMakeFiles/WordHunt.dir/button.cpp.o: CXX_COMPILER__WordHunt_unscanned_Debug /Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/button.cpp || cmake_object_order_depends_target_WordHunt
+  DEP_FILE = CMakeFiles/WordHunt.dir/button.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  INCLUDES = -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/WordHunt.dir
+  OBJECT_FILE_DIR = CMakeFiles/WordHunt.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target WordHunt
@@ -64,7 +71,7 @@ build CMakeFiles/WordHunt.dir/main.cpp.o: CXX_COMPILER__WordHunt_unscanned_Debug
 #############################################
 # Link the executable WordHunt
 
-build WordHunt: CXX_EXECUTABLE_LINKER__WordHunt_Debug CMakeFiles/WordHunt.dir/main.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
+build WordHunt: CXX_EXECUTABLE_LINKER__WordHunt_Debug CMakeFiles/WordHunt.dir/main.cpp.o CMakeFiles/WordHunt.dir/button.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib  /opt/homebrew/lib/libsfml-window.2.5.1.dylib  /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   OBJECT_DIR = CMakeFiles/WordHunt.dir
