@@ -2,7 +2,10 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Menu Screen");
+    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
+
+    // Change the background color to green
+    window.clear(sf::Color::Green);
 
     // Load font for the text
     sf::Font font;
@@ -10,33 +13,36 @@ int main()
         return EXIT_FAILURE;
     }
 
+    // Create "Modified Word Hunt" text
+    sf::Text titleText;
+    titleText.setFont(font);
+    titleText.setString("Modified Word Hunt");
+    titleText.setCharacterSize(120);
+    titleText.setFillColor(sf::Color::White);
+    titleText.setOutlineColor(sf::Color::Black);
+    titleText.setOutlineThickness(6);
+    titleText.setPosition(225, 50);
+
     // Create "Play" button
     sf::Text playText;
     playText.setFont(font);
     playText.setString("Play");
-    playText.setCharacterSize(32);
+    playText.setCharacterSize(80);
     playText.setFillColor(sf::Color::White);
     playText.setOutlineColor(sf::Color::Black);
-    playText.setOutlineThickness(2);
-    playText.setPosition(350, 300);
+    playText.setOutlineThickness(6);
+    playText.setPosition(550, 800);
 
     // Create "Settings" button
     sf::Text settingsText;
     settingsText.setFont(font);
     settingsText.setString("Settings");
-    settingsText.setCharacterSize(32);
+    settingsText.setCharacterSize(80);
     settingsText.setFillColor(sf::Color::White);
     settingsText.setOutlineColor(sf::Color::Black);
-    settingsText.setOutlineThickness(2);
-    settingsText.setPosition(325, 350);
-
-    // Load background image
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("background.png")) {
-        return EXIT_FAILURE;
-    }
-    sf::Sprite backgroundSprite(backgroundTexture);
-
+    settingsText.setOutlineThickness(6);
+    settingsText.setPosition(550, 1050);
+    
     // Game loop
     while (window.isOpen())
     {
@@ -61,11 +67,11 @@ int main()
             }
         }
 
-        // Clear the window
-        window.clear();
+        // Clear the window with green color
+        window.clear(sf::Color::Green);
 
-        // Draw the background
-        window.draw(backgroundSprite);
+        // Draw the title
+        window.draw(titleText);
 
         // Draw the buttons
         window.draw(playText);
