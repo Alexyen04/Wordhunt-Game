@@ -23,9 +23,14 @@ Button::Button(float x, float y, float width, float height,
     this -> shape.setFillColor(this -> idleColor) ;
 }
 
-Button::~Button() 
-{
+Button::~Button() {}
 
+void Button::update(const sf::Vector2f mousePos) {
+    //update the booleans for hover and pressed
+    if (this -> shape.getGlobalBounds().contains(mousePos))
+    {
+
+    }
 }
 
 void Button::render(sf::RenderTarget* target) 

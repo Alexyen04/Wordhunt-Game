@@ -28,6 +28,7 @@ class Button
         ~Button() ;
 
         //functions
+        void update(sf::Vector2f mousePos) ;
         void render(sf::RenderTarget* target) ;
 
 } ;
