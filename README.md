@@ -20,8 +20,8 @@ We were drawn to this project due to its engaging and thought-provoking nature, 
    * This version control system will be used to track changes to the project codebase and facilitate collaboration among team members
 * **Microsoft Visual Studio Code**
    * This will be the integrated development environment (IDE) used by all project members for editing and debugging code
-* **Ncurses**
-   * This library will be used to create text-based user interfaces within a terminal environment, making it a suitable choice for implementing the user interface of the word hunt game
+* **SFML**
+   * This library will be used to create visual user interfaces, making it a suitable choice for implementing the user interface of the word hunt game
 * **Valgrind**
    * Linux tool to detects errors and memory management issues including memory leaks
 

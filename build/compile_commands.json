@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/WordHunt.dir/main.cpp.o -c /Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/main.cpp",
+  "file": "/Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/main.cpp",
+  "output": "CMakeFiles/WordHunt.dir/main.cpp.o"
+}
+]

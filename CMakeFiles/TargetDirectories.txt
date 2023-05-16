@@ -1,0 +1,3 @@
+/Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/CMakeFiles/WordHunt.dir
+/Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/CMakeFiles/edit_cache.dir
+/Users/michaelchen/final-project-fsong009-mchen356-ayen019-sshak015/CMakeFiles/rebuild_cache.dir
