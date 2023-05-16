@@ -22,3 +22,13 @@ Button::Button(float x, float y, float width, float height,
 
     this -> shape.setFillColor(this -> idleColor) ;
 }
+
+Button::~Button() 
+{
+
+}
+
+void Button::render(sf::RenderTarget* target) 
+{
+    target -> draw(this -> shape) ;
+}
