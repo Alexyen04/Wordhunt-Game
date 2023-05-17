@@ -56,7 +56,10 @@ int main(){
     settingsText.setOutlineColor(sf::Color::Black);
     settingsText.setOutlineThickness(6);
     settingsText.setPosition(550, 1050);
-    
+
+    // print button
+    Button* gamestate_btn = new Button(100,100, 600, 600, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+
     // Game loop
     while (window.isOpen()){
         // Handle events
@@ -93,6 +96,8 @@ int main(){
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
+        gamestate_btn->render(&window) ;
+
 
         // Display the window
         window.display();
