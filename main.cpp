@@ -1,13 +1,25 @@
 #include <SFML/Graphics.hpp>
-
 #include "Button.h"
+using namespace std;
 
-int main()
-{
+int main(){
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
 
-    // Change the background color to green
-    window.clear(sf::Color::Green);
+    //testing gif features
+    sf::Texture gifTexture;
+    if (!gifTexture.loadFromFile("main_menu.gif")){
+        // Error handling if the image cannot be loaded
+        return 1;
+    }
+
+    sf::Sprite gifSprite(gifTexture);
+    gifSprite.setScale(
+        static_cast<float>(window.getSize().x) / gifSprite.getLocalBounds().width,
+        static_cast<float>(window.getSize().y) / gifSprite.getLocalBounds().height
+    );
+
+    sf::IntRect gifFrameRect(0, 0, gifTexture.getSize().x, gifTexture.getSize().y);
+    gifSprite.setTextureRect(gifFrameRect);
 
     // Load font for the text
     sf::Font font;
@@ -46,15 +58,18 @@ int main()
     settingsText.setPosition(550, 1050);
     
     // Game loop
-    while (window.isOpen())
-    {
+    while (window.isOpen()){
         // Handle events
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)){
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            gifFrameRect.left += gifFrameRect.width;
+            if (gifFrameRect.left >= gifTexture.getSize().x) {
+                gifFrameRect.left = 0;
+            }
+            gifSprite.setTextureRect(gifFrameRect);
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if "Play" button is clicked
@@ -69,8 +84,8 @@ int main()
             }
         }
 
-        // Clear the window with green color
-        window.clear(sf::Color::Green);
+        window.clear();
+        window.draw(gifSprite);
 
         // Draw the title
         window.draw(titleText);
