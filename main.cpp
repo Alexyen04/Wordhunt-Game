@@ -2,14 +2,12 @@
 #include "Button.h"
 using namespace std;
 
-int main()
-{
+int main(){
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
 
     //testing gif features
     sf::Texture gifTexture;
-    if (!gifTexture.loadFromFile("main_menu.gif"))
-    {
+    if (!gifTexture.loadFromFile("main_menu.gif")){
         // Error handling if the image cannot be loaded
         return 1;
     }
@@ -22,8 +20,6 @@ int main()
 
     sf::IntRect gifFrameRect(0, 0, gifTexture.getSize().x, gifTexture.getSize().y);
     gifSprite.setTextureRect(gifFrameRect);
-    // // Change the background color to green
-    // window.clear(sf::Color::Green);
 
     // Load font for the text
     sf::Font font;
@@ -88,8 +84,6 @@ int main()
             }
         }
 
-        // Clear the window with green color
-        //window.clear(sf::Color::Green);
         window.clear();
         window.draw(gifSprite);
 
