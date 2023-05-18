@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Button.h"
+#include "Board.h"
 
 int main()
 {
@@ -78,7 +79,7 @@ int main()
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
-
+  
         // Display the window
         window.display();
     }
