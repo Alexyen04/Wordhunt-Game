@@ -2,6 +2,14 @@
 #include "Button.h"
 using namespace std;
 
+sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
+    sf::Vector2<int> intVector = sf::Mouse::getPosition(window);
+    sf::Vector2<float> floatVector;
+    floatVector.x = static_cast<float>(intVector.x);
+    floatVector.y = static_cast<float>(intVector.y);
+    return floatVector;
+}
+
 int main(){
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
 
@@ -17,9 +25,6 @@ int main(){
         static_cast<float>(window.getSize().x) / gifSprite.getLocalBounds().width,
         static_cast<float>(window.getSize().y) / gifSprite.getLocalBounds().height
     );
-
-    sf::IntRect gifFrameRect(0, 0, gifTexture.getSize().x, gifTexture.getSize().y);
-    gifSprite.setTextureRect(gifFrameRect);
 
     // Load font for the text
     sf::Font font;
@@ -58,21 +63,21 @@ int main(){
     settingsText.setPosition(550, 1050);
 
     // print button
-    Button* gamestate_btn = new Button(100,100, 600, 600, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
-
+    Button* gamestate_btn = new Button(540,800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+    
     // Game loop
     while (window.isOpen()){
         // Handle events
         sf::Event event;
+        sf::Vector2f mousePos = getMousePosition(window);
         while (window.pollEvent(event)){
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            gifFrameRect.left += gifFrameRect.width;
-            if (gifFrameRect.left >= gifTexture.getSize().x) {
-                gifFrameRect.left = 0;
-            }
-            gifSprite.setTextureRect(gifFrameRect);
+            //tracking of mouse
+            //sf::Vector2f mousePos = getMousePosition(window);
+            //cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
+            
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if "Play" button is clicked
@@ -96,9 +101,9 @@ int main(){
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
-        gamestate_btn->update(mousePosView);
-        gamestate_btn->render(&window) ;
-
+        
+        gamestate_btn->update(mousePos);
+        gamestate_btn->render(&window);
 
         // Display the window
         window.display();
