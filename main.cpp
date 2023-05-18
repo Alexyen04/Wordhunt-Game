@@ -96,6 +96,7 @@ int main(){
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
+        gamestate_btn->update(mousePosView);
         gamestate_btn->render(&window) ;
 
 
