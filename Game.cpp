@@ -1,5 +1,8 @@
 #include "Game.h"
 
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
 
 void Game::initWindow()
 {
