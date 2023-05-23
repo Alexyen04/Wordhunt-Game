@@ -12,9 +12,19 @@
 
 class Game
 {
-    public:
-        Game() ;
-        virtual ~Game() ;
-} ;
+public:
+    Game();
+    virtual ~Game();
+
+    void updateSFMLevents();
+    void update();
+    void run();
+    void render();
+
+private:
+    void initWindow();
+    sf::RenderWindow* window; // Added 'window' member variable
+    sf::Event sfEvent; // Added 'sfEvent' member variable
+};
 
 #endif
