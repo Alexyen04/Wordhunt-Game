@@ -1,4 +1,5 @@
 #include "MainMenuState.h"
+#include "Button.h"
 
 void MainMenuState::initKeybinds() {
     std::ifstream ifs("Config/gamestate_keybinds.ini");
@@ -16,6 +17,9 @@ void MainMenuState::initKeybinds() {
 
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys) : State(window, supportedKeys) {
     this->initKeybinds();
+
+    this->background.setSize(sf::Vector1f(window->getSize().x, window->getSize().y));
+    this->background.setFillColor(sf::Color::Magenta);
 }
 
 MainMenuState::~MainMenuState() {
@@ -28,30 +32,15 @@ void MainMenuState::endState() {
 
 void MainMenuState::updateInput(const float & dt) {
     this->checkForQuit();
-
-    //update player input
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.get("MOVE_LEFT")))) {
-        this->player.move(dt, -1.f, 0.f);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.get("MOVE_RIGHT")))) {
-        this->player.move(dt, 1.f, 0.f);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.get("MOVE_UP")))) {
-        this->player.move(dt, 0.f, -1.f);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.get("MOVE_DOWN")))) {
-        this->player.move(dt, 0.f, 1.f);
-    }
 }
 
 void MainMenuState::update(const float& dt) {
     this->updateInput(dt);
-    this->player.update(dt);
 }
 
 void MainMenuState::render(sf::RenderTarget* target) {
     if(!target) {
         target = this->window;
     }
-    this->player.render(target);
+    target->draw(this->background);
 }
