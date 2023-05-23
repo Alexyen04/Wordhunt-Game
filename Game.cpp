@@ -48,6 +48,11 @@ void Game::run()
 
 void Game::updateSFMLevents()
 {
-
-
+    while ( this -> window -> pollEvent(this -> sfEvent))
+    {
+        if (this -> sfEvent.type == sf::Event::Closed)
+        {
+            this -> window -> close() ;
+        }
+    }
 }
