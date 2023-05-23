@@ -4,15 +4,12 @@
 void Game::initWindow()
 {
    this -> window = new sf::RenderWindow(sf::VideoMode(800, 600), "C++ SFML WordHunt") ;
-
-
 }
 
 
 Game::Game()
 {
-
-
+    this -> initWindow() ;
 }
 
 
@@ -24,8 +21,7 @@ Game::~Game()
 
 void Game::update()
 {
-
-
+    this -> updateSFMLevents() ;
 }
 
 
