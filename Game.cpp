@@ -38,7 +38,11 @@ void Game::render()
 
 void Game::run()
 {
-  
+    while (this -> window -> isOpen())
+    {
+        this -> update() ;
+        this -> render() ;
+    }
 }
 
 
