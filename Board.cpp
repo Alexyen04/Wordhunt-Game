@@ -1,9 +1,14 @@
 #include "Board.h"
 #include "Piece.h"
 
-Board::Board(float x, float y, float width, float height, 
-        sf::Font* font, std::string text) 
+Board::Board(float x, float y, float width, float height, std::string text) 
 {
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        return EXIT_FAILURE;
+    }
+
+
     this -> shape.setPosition(sf::Vector2f(x, y)) ;
     this -> shape.setSize(sf::Vector2f(width, height)) ;
     this -> font = font ;
@@ -17,28 +22,14 @@ Board::Board(float x, float y, float width, float height,
     ) ;
 
 }
-void Board::setRows(int r) {
-    rows = r;
+
+Board::~Board() { }
+
+
+void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(m_text, states);
 }
 
-void Board::setColumns(int c) {
-    columns = c;
-}
-
-int Board::getRows() {
-    return rows;
-}
-
-int Board::getColumns() {
-    return columns;
-}
-
-void drawBoard() {
-    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
-    window.clear(sf::Color::Green);
-
-    sf::Font font;
-    if (!font.loadFromFile("Poppins-Black.ttf")) {
-        return EXIT_FAILURE;
-    }
+void Board::render(sf::RenderTarget* target) {
+    target -> draw(this -> shape);
 }

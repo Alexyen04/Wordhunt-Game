@@ -8,29 +8,26 @@
 
 #include <SFML/Graphics.hpp>
 
-class Board {
+class Board : public sf::Drawable {
     public:
-        Board(float x, float y, float width, float height, 
-        sf::Font* font, std::string text) ;
+        Board(float x, float y, float width, float height, std::string text) ;
         ~Board();
-        
+
         void drawBoard();
+        void render(sf::RenderTarget* target);
 
-
-        //initialize in settings page
-        void setRows(int);
-        void setColumns(int);
-        int getRows();
-        int getColumns();
 
     private:
-        int rows = 0; 
-        int columns = 0;
         int score;
-        piece matrixBoard [rows][columns];
+        //vector <Piece> boardChars;
         sf::RectangleShape shape ;
         sf::Font* font ;
         sf::Text text ;
+        sf::Sprite m_sprite;    
+        sf::Texture m_texture;
+        sf::VertexArray m_vertices;
+
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 #endif

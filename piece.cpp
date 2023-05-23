@@ -1,4 +1,4 @@
-#include "piece.h"
+#include "Piece.h"
 
 Piece::Piece(float x, float y, float width, float height, 
         sf::Font* font, std::string text, 
@@ -24,3 +24,8 @@ Piece::Piece(float x, float y, float width, float height,
 }
 
 Piece::~Piece() {} 
+
+// void Piece::render(sf::RenderTarget* target) 
+// {
+//     target -> draw(this -> shape) ;
+// }
