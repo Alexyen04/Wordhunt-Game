@@ -2,6 +2,10 @@
 #include "Button.h"
 using namespace std;
 
+sf::Vector2i getMousePosition(const sf::RenderWindow& window) {
+    return sf::Mouse::getPosition(window);
+}
+
 int main(){
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
 
@@ -17,9 +21,6 @@ int main(){
         static_cast<float>(window.getSize().x) / gifSprite.getLocalBounds().width,
         static_cast<float>(window.getSize().y) / gifSprite.getLocalBounds().height
     );
-
-    sf::IntRect gifFrameRect(0, 0, gifTexture.getSize().x, gifTexture.getSize().y);
-    gifSprite.setTextureRect(gifFrameRect);
 
     // Load font for the text
     sf::Font font;
@@ -65,11 +66,10 @@ int main(){
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            gifFrameRect.left += gifFrameRect.width;
-            if (gifFrameRect.left >= gifTexture.getSize().x) {
-                gifFrameRect.left = 0;
-            }
-            gifSprite.setTextureRect(gifFrameRect);
+            //tracking of mouse
+            sf::Vector2i mousePos = getMousePosition(window);
+            cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
+            
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if "Play" button is clicked
