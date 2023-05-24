@@ -18,18 +18,21 @@ class Button
         short unsigned buttonState;
 
         sf::RectangleShape shape ;
-        sf::Font* font ;
+        sf::Font font ;
         sf::Text text ;
 
         sf::Color idleColor ;
         sf::Color hoverColor ;
-        sf::Color activateColor ;
+        sf::Color activeColor ;
 
     public:
         Button(float x, float y, float width, float height, 
-        sf::Font* font, std::string text, 
+        sf::Font font, std::string text, 
         sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor) ;
         ~Button() ;
+
+        //Accessors
+        const bool isPressed() const;
 
         //functions
         void update(sf::Vector2f mousePos) ;
