@@ -63,8 +63,10 @@ int main(){
     settingsText.setPosition(550, 1050);
 
     // print button
-    Button* gamestate_btn = new Button(540,800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
-    
+    Button* gamestate_btn = new Button(540, 800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+    Button* gamestate_btn_2 = new Button(540, 1060, 325, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+
+
     // Game loop
     while (window.isOpen()){
         // Handle events
@@ -104,6 +106,8 @@ int main(){
         
         gamestate_btn->update(mousePos);
         gamestate_btn->render(&window);
+        gamestate_btn_2->update(mousePos);
+        gamestate_btn_2->render(&window);
 
         // Display the window
         window.display();
