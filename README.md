@@ -44,7 +44,7 @@ The game input is a customizable grid of letters, with parameters like dimension
 ## User Interface Specification
 
 ### Navigation Diagram
-![Navigation Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/1f12729eee9c3d89ce5278ec466aca401d6be23c/Navigation_Diagram.png)
+![Navigation Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/Navigation_Diagram.jpeg)
 The main purpose of this navigational diagram is to provide a visual map of the user's journey through the game. There consists of multiple screens, with lines showing how to move between them. The contents of each screen are listed in each rectangle. 
 
 ### Screen Layouts

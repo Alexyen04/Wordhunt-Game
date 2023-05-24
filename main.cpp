@@ -10,12 +10,12 @@ sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
     return floatVector;
 }
 
-int main(){
+int main() {
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
 
     //testing gif features
     sf::Texture gifTexture;
-    if (!gifTexture.loadFromFile("main_menu.gif")){
+    if (!gifTexture.loadFromFile("main_menu.gif")) {
         // Error handling if the image cannot be loaded
         return 1;
     }
@@ -42,52 +42,31 @@ int main(){
     titleText.setOutlineThickness(6);
     titleText.setPosition(225, 50);
 
-    // Create "Play" button
-    sf::Text playText;
-    playText.setFont(font);
-    playText.setString("Play");
-    playText.setCharacterSize(80);
-    playText.setFillColor(sf::Color::White);
-    playText.setOutlineColor(sf::Color::Black);
-    playText.setOutlineThickness(6);
-    playText.setPosition(550, 800);
-
-    // Create "Settings" button
-    sf::Text settingsText;
-    settingsText.setFont(font);
-    settingsText.setString("Settings");
-    settingsText.setCharacterSize(80);
-    settingsText.setFillColor(sf::Color::White);
-    settingsText.setOutlineColor(sf::Color::Black);
-    settingsText.setOutlineThickness(6);
-    settingsText.setPosition(550, 1050);
-
-    // print button
-    Button* gamestate_btn = new Button(540, 800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
-    Button* gamestate_btn_2 = new Button(540, 1060, 325, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+    // Create buttons using the Button class
+    Button playButton(550, 800, 190, 100, font, "Play", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button settingsButton(550, 1050, 325, 100, font, "Settings", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
 
     // Game loop
-    while (window.isOpen()){
+    while (window.isOpen()) {
         // Handle events
         sf::Event event;
         sf::Vector2f mousePos = getMousePosition(window);
-        while (window.pollEvent(event)){
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            //tracking of mouse
-
+            // Tracking of mouse
             sf::Vector2f mousePos = getMousePosition(window);
             cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    // Check if "Play" button is clicked
-                    if (playText.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                    // Check if play button is clicked
+                    if (playButton.isPressed()) {
                         // Do something when "Play" button is clicked
                     }
-                    // Check if "Settings" button is clicked
-                    if (settingsText.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                    // Check if settings button is clicked
+                    if (settingsButton.isPressed()) {
                         // Do something when "Settings" button is clicked
                     }
                 }
@@ -101,13 +80,11 @@ int main(){
         window.draw(titleText);
 
         // Draw the buttons
-        window.draw(playText);
-        window.draw(settingsText);
-        
-        gamestate_btn->update(mousePos);
-        gamestate_btn->render(&window);
-        gamestate_btn_2->update(mousePos);
-        gamestate_btn_2->render(&window);
+        playButton.update(mousePos);
+        playButton.render(&window);
+
+        settingsButton.update(mousePos);
+        settingsButton.render(&window);
 
         // Display the window
         window.display();
