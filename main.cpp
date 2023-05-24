@@ -66,7 +66,6 @@ int main(){
     Button* gamestate_btn = new Button(540, 800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
     Button* gamestate_btn_2 = new Button(540, 1060, 325, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
 
-
     // Game loop
     while (window.isOpen()){
         // Handle events
@@ -80,7 +79,7 @@ int main(){
 
             sf::Vector2f mousePos = getMousePosition(window);
             cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
-            
+
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if "Play" button is clicked
