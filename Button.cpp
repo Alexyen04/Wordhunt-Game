@@ -59,7 +59,7 @@ void Button::update(const sf::Vector2f mousePos) {
             break;
 
         case BTN_ACTIVE:
-            this->shape.setFillColor(this->activeColor);
+            this->shape.setFillColor(this->activateColor);
             break;
 
         default:

@@ -77,8 +77,9 @@ int main(){
                 window.close();
             }
             //tracking of mouse
-            //sf::Vector2f mousePos = getMousePosition(window);
-            //cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
+
+            sf::Vector2f mousePos = getMousePosition(window);
+            cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
             
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
