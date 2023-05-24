@@ -2,8 +2,12 @@
 #include "Button.h"
 using namespace std;
 
-sf::Vector2i getMousePosition(const sf::RenderWindow& window) {
-    return sf::Mouse::getPosition(window);
+sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
+    sf::Vector2<int> intVector = sf::Mouse::getPosition(window);
+    sf::Vector2<float> floatVector;
+    floatVector.x = static_cast<float>(intVector.x);
+    floatVector.y = static_cast<float>(intVector.y);
+    return floatVector;
 }
 
 int main(){
@@ -57,17 +61,24 @@ int main(){
     settingsText.setOutlineColor(sf::Color::Black);
     settingsText.setOutlineThickness(6);
     settingsText.setPosition(550, 1050);
-    
+
+    // print button
+    Button* gamestate_btn = new Button(540, 800, 190, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+    Button* gamestate_btn_2 = new Button(540, 1060, 325, 100, font, "New Game", sf::Color(70,70,70,200), sf::Color(150,150,150,255), sf::Color(20,20,20,200));
+
+
     // Game loop
     while (window.isOpen()){
         // Handle events
         sf::Event event;
+        sf::Vector2f mousePos = getMousePosition(window);
         while (window.pollEvent(event)){
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
             //tracking of mouse
-            sf::Vector2i mousePos = getMousePosition(window);
+
+            sf::Vector2f mousePos = getMousePosition(window);
             cout << "Mouse position: X = " << mousePos.x << ", Y = " << mousePos.y << endl;
             
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -93,6 +104,11 @@ int main(){
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
+        
+        gamestate_btn->update(mousePos);
+        gamestate_btn->render(&window);
+        gamestate_btn_2->update(mousePos);
+        gamestate_btn_2->render(&window);
 
         // Display the window
         window.display();
