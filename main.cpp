@@ -105,23 +105,31 @@ void settingScreen(sf::RenderWindow& window) {
     Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
 
     while (window.isOpen()) {
+        // Handle events
         sf::Event event;
-        sf::Vector2f mousePos = getMousePosition(window);
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            // Update button states
+            backButton.update(getMousePosition(window));
 
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                if (backButton.isPressed()) {
-                    mainMenu(window);
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    // Check if play button is clicked
+                    if (backButton.isPressed()) {
+                        // Do something when "Play" button is clicked
+                    }
+                    // Check if settings button is clicked
+                    if (backButton.isPressed()) {
+                        mainMenu(window);
+                    }
                 }
             }
         }
 
         window.clear();
         window.draw(titleText);
-        backButton.update(mousePos);
         backButton.render(&window);
         window.display();
     }
