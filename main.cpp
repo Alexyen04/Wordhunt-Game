@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "WordPointCalc.h"
+
 using namespace std;
 
 void settingScreen(sf::RenderWindow& window) ;
@@ -137,6 +139,7 @@ void settingScreen(sf::RenderWindow& window) {
 
 
 int main() {
+    promptAndCalculatePoints();
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
     mainMenu(window);
     return EXIT_SUCCESS;
