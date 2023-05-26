@@ -8,6 +8,9 @@ add_executable(WordHunt
     button.cpp 
     board.cpp 
     piece.cpp
+    Game.cpp
+    GameState.cpp
+    State.cpp
 )
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
