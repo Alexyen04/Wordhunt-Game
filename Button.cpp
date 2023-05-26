@@ -73,3 +73,47 @@ void Button::render(sf::RenderTarget* target)
     target -> draw(this -> shape) ;
     target -> draw(this->text); 
 }
+
+sf::Color Button::getIdleColor() const {
+    return idleColor;
+}
+
+void Button::setIdleColor(sf::Color color) {
+    idleColor = color;
+    if (buttonState == BTN_IDLE) {
+        shape.setFillColor(idleColor);
+    }
+}
+
+sf::Color Button::getHoverColor() const {
+    return hoverColor;
+}
+
+void Button::setHoverColor(sf::Color color) {
+    hoverColor = color;
+    if (buttonState == BTN_HOVER) {
+        shape.setFillColor(hoverColor);
+    }
+}
+
+sf::Color Button::getActiveColor() const {
+    return activeColor;
+}
+
+void Button::setActiveColor(sf::Color color) {
+    activeColor = color;
+    shape.setFillColor(activeColor);
+}
+
+std::string Button::getText() const {
+    return text.getString();
+}
+
+void Button::setText(const std::string& text) {
+    this->text.setString(text);
+    // Adjust the position of the text based on the new text size
+    this->text.setPosition(
+        shape.getPosition().x + (shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
+        shape.getPosition().y + (shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f - (shape.getSize().y * .12)
+    );
+}
