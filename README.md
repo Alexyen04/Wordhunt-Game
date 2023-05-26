@@ -65,8 +65,8 @@ Overall, the UML Class diagram provides a clear visualization of the key classes
 
 ## SOLID Class Diagram
 ![SOLID Class Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/SOLID_Diagram.jpeg)
-In this class diagram we mostly applied the Open-Closed Principle (OCP) part of solid and a bit of 
-Dependency Inversion Principle (DIP). This can be seen with the change by having the abstract Word class that word checker and dictionary inherit off of. The change now allows us to better organize the functions we will need to write and not need to have duplicate functions over classes. We will implement this change in our next sprint.
+In this class diagram we mostly applied the Open-Closed Principle (OCP) part of solid, a bit of 
+Dependency Inversion Principle (DIP), and also the Interface Segregation Principle (ISP). This can be seen with the change by having the abstract Word class that word checker and dictionary inherit off of. The change now allows us to better organize the functions we will need to write and not need to have duplicate functions over classes. We will implement this change in our next sprint.
  
  > ## Final deliverable
  > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
