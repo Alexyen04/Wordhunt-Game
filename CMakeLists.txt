@@ -3,6 +3,6 @@ project(WordHunt CXX)
 
 find_package(SFML 2.5.1 REQUIRED COMPONENTS graphics)
 
-add_executable(WordHunt main.cpp button.cpp Game.cpp GameState.cpp State.cpp)
+add_executable(WordHunt main.cpp Button.cpp Game.cpp GameState.cpp State.cpp)
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
 target_compile_features(WordHunt PRIVATE cxx_std_17)
