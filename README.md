@@ -64,8 +64,7 @@ For example, settings related to the creation of the board (such as dimensions) 
 Overall, the UML Class diagram provides a clear visualization of the key classes and their relationships within the Word Hunt game.
 
 ## SOLID Class Diagram
-! [SOLID Class Diagram] (https://github.com/cs100/final-project-fsong009-mchen356-ayen019
--sshak015/blob/master/Images/SOLID_Diagram.jpeg)
+! [SOLID Class Diagram] (https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/SOLID_Diagram.jpeg)
 In this class diagram we mostly applied the Open-Closed Principle (OCP) part of solid and a bit of 
 Dependency Inversion Principle (DIP). This can be seen with the change by having the abstract Word class that word checker and dictionary inherit off of. The change now allows us to better organize the functions we will need to write and not need to have duplicate functions over classes. We will implement this change in our next sprint.
  
