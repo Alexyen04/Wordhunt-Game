@@ -2,7 +2,7 @@
 
 #include "Button.h"
 #include "Board.h"
-#include "Piece.h"
+#include "piece.h"
 
 int main()
 {
@@ -47,7 +47,7 @@ int main()
     settingsText.setOutlineThickness(6);
     settingsText.setPosition(550, 1050);
     
-    Board testBoard(0,0,1000,1000, "TEST");
+    Board testBoard(400, 400, 1000, 1000, &font, "TEST");
 
     // Game loop
     while (window.isOpen())
@@ -82,11 +82,12 @@ int main()
         // Draw the buttons
         window.draw(playText);
         window.draw(settingsText);
-  
+
+        //window.clear();
+        testBoard.render(&window);
+        
         // Display the window
         window.display();
-
-        window.draw(testBoard);
     }
 
     return EXIT_SUCCESS;
