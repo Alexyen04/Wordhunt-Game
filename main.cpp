@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "Text.h"
 #include "WordPointCalc.h"
 
 using namespace std;
@@ -39,11 +40,7 @@ void mainMenu(sf::RenderWindow& window) {
     }
 
     // Create the title text
-    sf::Text titleText("Modified Word Hunt", font, 120);
-    titleText.setFillColor(sf::Color::White);
-    titleText.setOutlineColor(sf::Color::Black);
-    titleText.setOutlineThickness(6);
-    titleText.setPosition(216.101875, 50);
+    Text titleText(font, "Modified Word Hunt", 120, sf::Color::White, sf::Color::Black, 6.0f, sf::Vector2f(216.101875f, 50.0f));
 
     // Create the buttons
     Button playButton(550, 800, 190, 100, font, "Play", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
@@ -77,9 +74,12 @@ void mainMenu(sf::RenderWindow& window) {
 
         window.clear();
         window.draw(gifSprite);
-        window.draw(titleText);
+
+        titleText.render(window);
+
         playButton.render(&window);
         settingsButton.render(&window);
+        
         window.display();
     }
 }
@@ -94,14 +94,7 @@ void settingScreen(sf::RenderWindow& window) {
     }
 
     // Create "Settings" text
-    sf::Text titleText;
-    titleText.setFont(font);
-    titleText.setString("Settings");
-    titleText.setCharacterSize(120);
-    titleText.setFillColor(sf::Color::White);
-    titleText.setOutlineColor(sf::Color::Black);
-    titleText.setOutlineThickness(6);
-    titleText.setPosition(533.89875, 50);
+    Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, sf::Vector2f(533.89875f, 50.0f));
 
     // Create buttons using the Button class
     Button soundeffectButton(1075, 300, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
@@ -135,7 +128,8 @@ void settingScreen(sf::RenderWindow& window) {
         }
 
         window.clear();
-        window.draw(titleText);
+
+        titleText.render(window) ;
 
         soundeffectButton.render(&window);
         scoreMultiplierButton.render(&window);
