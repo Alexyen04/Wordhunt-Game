@@ -122,7 +122,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     Button scoreMultiplierButton(1075, 525, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
     Button hintButton(1075, 750, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
     Button powerupButton(1075, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
-    Button backButton(1075, 1200, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(1075, 1200, 325, 100, font, "->", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
 
     while (window.isOpen()) {
         // Handle events
