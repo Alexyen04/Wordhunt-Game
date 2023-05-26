@@ -104,15 +104,11 @@ void settingScreen(sf::RenderWindow& window) {
     titleText.setPosition(533.89875, 50);
 
     // Create buttons using the Button class
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button soundeffectButton(1075, 300, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button scoreMultiplierButton(1075, 525, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button hintButton(1075, 750, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button powerupButton(1075, 975, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(1075, 1200, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
 
     while (window.isOpen()) {
         // Handle events
@@ -140,7 +136,13 @@ void settingScreen(sf::RenderWindow& window) {
 
         window.clear();
         window.draw(titleText);
+
+        soundeffectButton.render(&window);
+        scoreMultiplierButton.render(&window);
+        hintButton.render(&window);
+        powerupButton.render(&window);
         backButton.render(&window);
+
         window.display();
     }
 }
