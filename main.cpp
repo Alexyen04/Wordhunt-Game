@@ -190,6 +190,52 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                             scoreMultiplierButton.setHoverColor(sf::Color::Red) ;
                         }
                     }
+                    if (hintButton.isPressed()) {
+                        if (userSettings.areHintsEnabled())
+                        {
+                            userSettings.setHintsEnabled(false) ;
+                        }
+                        else 
+                        {
+                            userSettings.setHintsEnabled(true) ;
+                        }
+
+                        if (userSettings.areHintsEnabled())
+                        {
+                            hintButton.setText("On") ;
+                            hintButton.setIdleColor(sf::Color::Green) ;
+                            hintButton.setHoverColor(sf::Color::Green) ;
+                        }
+                        else
+                        {
+                            hintButton.setText("Off") ;
+                            hintButton.setIdleColor(sf::Color::Red) ;
+                            hintButton.setHoverColor(sf::Color::Red) ;
+                        }
+                    }
+                    if (powerupButton.isPressed()) {
+                        if (userSettings.arePowerupsEnabled())
+                        {
+                            userSettings.setPowerupsEnabled(false) ;
+                        }
+                        else 
+                        {
+                            userSettings.setPowerupsEnabled(true) ;
+                        }
+
+                        if (userSettings.arePowerupsEnabled())
+                        {
+                            powerupButton.setText("On") ;
+                            powerupButton.setIdleColor(sf::Color::Green) ;
+                            powerupButton.setHoverColor(sf::Color::Green) ;
+                        }
+                        else
+                        {
+                            powerupButton.setText("Off") ;
+                            powerupButton.setIdleColor(sf::Color::Red) ;
+                            powerupButton.setHoverColor(sf::Color::Red) ;
+                        }
+                    }
                 }
             }
         }
