@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "Board.h"
+#include "piece.h"
 #include "Text.h"
 #include "WordPointCalc.h"
 #include "Settings.h"
@@ -256,6 +258,8 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         powerupButton.render(&window);
         backButton.render(&window);
 
+        
+        // Display the window
         window.display();
     }
 }
