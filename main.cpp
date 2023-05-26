@@ -43,7 +43,7 @@ void mainMenu(sf::RenderWindow& window) {
     titleText.setFillColor(sf::Color::White);
     titleText.setOutlineColor(sf::Color::Black);
     titleText.setOutlineThickness(6);
-    titleText.setPosition(225, 50);
+    titleText.setPosition(216.101875, 50);
 
     // Create the buttons
     Button playButton(550, 800, 190, 100, font, "Play", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
@@ -101,9 +101,17 @@ void settingScreen(sf::RenderWindow& window) {
     titleText.setFillColor(sf::Color::White);
     titleText.setOutlineColor(sf::Color::Black);
     titleText.setOutlineThickness(6);
-    titleText.setPosition(225, 50);
+    titleText.setPosition(533.89875, 50);
 
     // Create buttons using the Button class
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
+    Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
     Button backButton(550, 1050, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
 
     while (window.isOpen()) {
@@ -139,7 +147,7 @@ void settingScreen(sf::RenderWindow& window) {
 
 
 int main() {
-    promptAndCalculatePoints();
+    //promptAndCalculatePoints();
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Modified Word Hunt");
     mainMenu(window);
     return EXIT_SUCCESS;
