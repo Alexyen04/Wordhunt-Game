@@ -106,22 +106,22 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     Text backText(font, "Back", 60, sf::Color::White, sf::Color::Black, 6.0f, sf::Vector2f(800.0f, 1210.0f));
 
     // Initialize button labels based on user settings
-    sf::Color soundButtonColor = userSettings.isSoundEnabled() ? sf::Color::Green : sf::Color::Red;
+    sf::Color soundButtonColor = userSettings.areEffectsEnabled() ? sf::Color::Green : sf::Color::Red;
     sf::Color scoreMultiplierButtonColor = userSettings.isScoreMultiplierEnabled() ? sf::Color::Green : sf::Color::Red;
     sf::Color hintButtonColor = userSettings.areHintsEnabled() ? sf::Color::Green : sf::Color::Red;
     sf::Color powerupButtonColor = userSettings.arePowerupsEnabled() ? sf::Color::Green : sf::Color::Red;
 
     // Initialize button labels based on user settings
-    std::string soundButtonText = userSettings.isSoundEnabled() ? "On" : "Off";
+    std::string soundButtonText = userSettings.areEffectsEnabled() ? "On" : "Off";
     std::string scoreMultiplierButtonText = userSettings.isScoreMultiplierEnabled() ? "On" : "Off";
     std::string hintButtonText = userSettings.areHintsEnabled() ? "On" : "Off";
     std::string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
-    Button soundeffectButton(1075, 300, 325, 100, font, soundButtonText, sf::Color::Red, soundButtonColor, soundButtonColor);
-    Button scoreMultiplierButton(1075, 525, 325, 100, font, scoreMultiplierButtonText, sf::Color::Red, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
-    Button hintButton(1075, 750, 325, 100, font, hintButtonText, sf::Color::Red, hintButtonColor, hintButtonColor);
-    Button powerupButton(1075, 975, 325, 100, font, powerupButtonText, sf::Color::Red, powerupButtonColor, powerupButtonColor);
+    Button soundeffectButton(1075, 300, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
+    Button scoreMultiplierButton(1075, 525, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
+    Button hintButton(1075, 750, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
+    Button powerupButton(1075, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
     Button backButton(1075, 1200, 325, 100, font, "Back", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
 
     while (window.isOpen()) {
@@ -134,6 +134,9 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             // Update button states
             backButton.update(getMousePosition(window));
             soundeffectButton.update(getMousePosition(window));
+            scoreMultiplierButton.update(getMousePosition(window));
+            hintButton.update(getMousePosition(window));
+            powerupButton.update(getMousePosition(window));
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
@@ -142,16 +145,16 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                         mainMenu(window, userSettings);
                     }
                     if (soundeffectButton.isPressed()) {
-                        if (userSettings.isSoundEnabled())
+                        if (userSettings.areEffectsEnabled())
                         {
-                            userSettings.setSoundEnabled(false) ;
+                            userSettings.setEffectsEnabled(false) ;
                         }
                         else 
                         {
-                            userSettings.setSoundEnabled(true) ;
+                            userSettings.setEffectsEnabled(true) ;
                         }
 
-                        if (userSettings.isSoundEnabled())
+                        if (userSettings.areEffectsEnabled())
                         {
                             soundeffectButton.setText("On") ;
                             soundeffectButton.setIdleColor(sf::Color::Green) ;
@@ -162,6 +165,29 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                             soundeffectButton.setText("Off") ;
                             soundeffectButton.setIdleColor(sf::Color::Red) ;
                             soundeffectButton.setHoverColor(sf::Color::Red) ;
+                        }
+                    }
+                    if (scoreMultiplierButton.isPressed()) {
+                        if (userSettings.isScoreMultiplierEnabled())
+                        {
+                            userSettings.setScoreMultiplierEnabled(false) ;
+                        }
+                        else 
+                        {
+                            userSettings.setScoreMultiplierEnabled(true) ;
+                        }
+
+                        if (userSettings.isScoreMultiplierEnabled())
+                        {
+                            scoreMultiplierButton.setText("On") ;
+                            scoreMultiplierButton.setIdleColor(sf::Color::Green) ;
+                            scoreMultiplierButton.setHoverColor(sf::Color::Green) ;
+                        }
+                        else
+                        {
+                            scoreMultiplierButton.setText("Off") ;
+                            scoreMultiplierButton.setIdleColor(sf::Color::Red) ;
+                            scoreMultiplierButton.setHoverColor(sf::Color::Red) ;
                         }
                     }
                 }
