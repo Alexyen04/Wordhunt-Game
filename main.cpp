@@ -142,13 +142,26 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                         mainMenu(window, userSettings);
                     }
                     if (soundeffectButton.isPressed()) {
-                        if (soundeffectButton.getActiveColor() == sf::Color::Red) {
-                            soundeffectButton.setActiveColor(sf::Color::Green);
-                            soundeffectButton.setText("On");
+                        if (userSettings.isSoundEnabled())
+                        {
+                            userSettings.setSoundEnabled(false) ;
                         }
-                        else if (soundeffectButton.getActiveColor() == sf::Color::Green) {
-                            soundeffectButton.setActiveColor(sf::Color::Red);
-                            soundeffectButton.setText("Off");
+                        else 
+                        {
+                            userSettings.setSoundEnabled(true) ;
+                        }
+
+                        if (userSettings.isSoundEnabled())
+                        {
+                            soundeffectButton.setText("On") ;
+                            soundeffectButton.setIdleColor(sf::Color::Green) ;
+                            soundeffectButton.setHoverColor(sf::Color::Green) ;
+                        }
+                        else
+                        {
+                            soundeffectButton.setText("Off") ;
+                            soundeffectButton.setIdleColor(sf::Color::Red) ;
+                            soundeffectButton.setHoverColor(sf::Color::Red) ;
                         }
                     }
                 }
