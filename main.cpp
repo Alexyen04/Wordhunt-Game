@@ -1,4 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <sstream>
+#include <iostream>
 #include "Button.h"
 #include "Board.h"
 #include "piece.h"
@@ -38,13 +42,20 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
 
     // Load the font
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("Poppins-Black.ttf")) {
         return;
     }
 
-    // Create the title text
-    Text titleText(font, "Modified Word Hunt", 120, sf::Color::White, sf::Color::Black, 6.0f, sf::Vector2f(216.101875f, 50.0f));
+    // Calculate relative positions and sizes based on window size
+    float windowWidth = static_cast<float>(window.getSize().x);
+    float windowHeight = static_cast<float>(window.getSize().y);
+    sf::Vector2f titlePosition(windowWidth * 0.144f, windowHeight * 0.033f);
+    sf::Vector2f playButtonPosition(windowWidth * 0.3667f, windowHeight * 0.5333f);
+    sf::Vector2f settingsButtonPosition(windowWidth * 0.3667f, windowHeight * 0.7f);
 
+    // Create the title text
+    Text titleText(font, "Modified Word Hunt", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
+   
     // Create the buttons
     Button playButton(550, 800, 190, 100, font, "Play", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
     Button settingsButton(550, 1050, 325, 100, font, "Settings", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
@@ -92,7 +103,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
     // Load font for the text
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("Poppins-Black.ttf")) {
         return;
     }
 
@@ -128,15 +139,26 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
     //Create slider
     sf::RectangleShape slider(sf::Vector2f(200, 20));
-    slider.setFillColor(sf::Color::Cyan);
+    slider.setFillColor(sf::Color::White);
     slider.setPosition(300, 280);
 
     // Slider handle properties
     sf::RectangleShape handle(sf::Vector2f(20, 40));
-    handle.setFillColor(sf::Color::Blue);
-    handle.setPosition(slider.getPosition().x, slider.getPosition().y - 10);
+    handle.setFillColor(sf::Color::Red);
+    handle.setPosition(slider.getPosition().x - handle.getSize().x * 0.5f, slider.getPosition().y - handle.getSize().y * 0.5f);
+
+    sf::Text valueText("", font, 30);
+    valueText.setFillColor(sf::Color::White);
+    valueText.setPosition(400, 400);
+
+    float sliderMin = slider.getPosition().x;
+    float sliderMax = slider.getPosition().x + slider.getSize().x;
+    float handleWidth = handle.getSize().x;
     bool isDragging = false;
 
+    int sliderValue = 50;
+    handle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, handle.getPosition().y);
+    
     while (window.isOpen()) {
         // Handle events
         sf::Event event;
@@ -260,19 +282,16 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             }
             else if (event.type == sf::Event::MouseMoved) {
                 if (isDragging) {
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                    float posX = static_cast<float>(mousePos.x);
-                    float sliderLeft = slider.getPosition().x;
-                    float sliderRight = sliderLeft + slider.getSize().x - handle.getSize().x;
-                    float handleX = posX - handle.getSize().x * 0.5f;
+                    sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+                    float clampedX = std::max(sliderMin, std::min(sliderMax - handleWidth, mousePos.x));
+                    float normalizedX = (clampedX - sliderMin) / (sliderMax - sliderMin - handleWidth);
+                    sliderValue = static_cast<int>(normalizedX * 100);
+                    handle.setPosition(clampedX, handle.getPosition().y);
 
-                    // Clamp the handle position within the slider bounds
-                    if (handleX < sliderLeft)
-                        handleX = sliderLeft;
-                    else if (handleX > sliderRight)
-                        handleX = sliderRight;
-
-                    handle.setPosition(handleX, handle.getPosition().y);
+                    //Calculate and display the current value
+                    stringstream ss;
+                    ss << "Current Volume " << sliderValue;
+                    valueText.setString(ss.str());
                 }
             }
         }
@@ -292,8 +311,10 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         hintButton.render(&window);
         powerupButton.render(&window);
         backButton.render(&window);
+
         window.draw(slider);
         window.draw(handle);
+        window.draw(valueText);
         
         // Display the window
         window.display();
