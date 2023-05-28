@@ -49,7 +49,7 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
     // Calculate relative positions and sizes based on window size
     float windowWidth = static_cast<float>(window.getSize().x);
     float windowHeight = static_cast<float>(window.getSize().y);
-    sf::Vector2f titlePosition(windowWidth * 0.144f, windowHeight * 0.033f);
+    sf::Vector2f titlePosition(windowWidth * 0.100f, windowHeight * 0.033f);
     sf::Vector2f playButtonPosition(windowWidth * 0.3667f, windowHeight * 0.5333f);
     sf::Vector2f settingsButtonPosition(windowWidth * 0.3667f, windowHeight * 0.7f);
 
@@ -57,9 +57,28 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
     Text titleText(font, "Modified Word Hunt", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
    
     // Create the buttons
-    Button playButton(550, 800, 190, 100, font, "Play", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-    Button settingsButton(550, 1050, 325, 100, font, "Settings", sf::Color::White, sf::Color::Black, sf::Color(70, 70, 70, 200));
-
+    Button playButton(
+        static_cast<int>(playButtonPosition.x),
+        static_cast<int>(playButtonPosition.y),
+        static_cast<int>(windowWidth * 0.15f),
+        static_cast<int>(windowHeight * 0.0667f),
+        font,
+        "Play",
+        sf::Color::Black, 
+        sf::Color::White,
+        sf::Color(70, 70, 70, 200)
+    );
+    Button settingsButton(
+        static_cast<int>(settingsButtonPosition.x),
+        static_cast<int>(settingsButtonPosition.y),
+        static_cast<int>(windowWidth * 0.27f), 
+        static_cast<int>(windowHeight * 0.0667f),
+        font,
+        "Settings",
+        sf::Color::Black, 
+        sf::Color::White, 
+        sf::Color(70, 70, 70, 200)
+    );
     // Game loop
     while (window.isOpen()) {
         // Handle events
