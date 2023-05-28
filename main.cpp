@@ -126,6 +126,17 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     Button powerupButton(1075, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
     Button backButton(1075, 1200, 325, 100, font, "->", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
 
+    //Create slider
+    sf::RectangleShape slider(sf::Vector2f(200, 20));
+    slider.setFillColor(sf::Color::Cyan);
+    slider.setPosition(300, 280);
+
+    // Slider handle properties
+    sf::RectangleShape handle(sf::Vector2f(20, 40));
+    handle.setFillColor(sf::Color::Blue);
+    handle.setPosition(slider.getPosition().x, slider.getPosition().y - 10);
+    bool isDragging = false;
+
     while (window.isOpen()) {
         // Handle events
         sf::Event event;
@@ -141,6 +152,10 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             powerupButton.update(getMousePosition(window));
 
             if (event.type == sf::Event::MouseButtonPressed) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                if (handle.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                    isDragging = true;
+                }
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if settings button is clicked
                     if (backButton.isPressed()) {
@@ -240,6 +255,26 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                     }
                 }
             }
+            else if (event.type == sf::Event::MouseButtonReleased) {
+                isDragging = false;
+            }
+            else if (event.type == sf::Event::MouseMoved) {
+                if (isDragging) {
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                    float posX = static_cast<float>(mousePos.x);
+                    float sliderLeft = slider.getPosition().x;
+                    float sliderRight = sliderLeft + slider.getSize().x - handle.getSize().x;
+                    float handleX = posX - handle.getSize().x * 0.5f;
+
+                    // Clamp the handle position within the slider bounds
+                    if (handleX < sliderLeft)
+                        handleX = sliderLeft;
+                    else if (handleX > sliderRight)
+                        handleX = sliderRight;
+
+                    handle.setPosition(handleX, handle.getPosition().y);
+                }
+            }
         }
 
         window.clear();
@@ -257,7 +292,8 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         hintButton.render(&window);
         powerupButton.render(&window);
         backButton.render(&window);
-
+        window.draw(slider);
+        window.draw(handle);
         
         // Display the window
         window.display();
