@@ -129,23 +129,21 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     // Calculate relative positions based on window size
     sf::Vector2f windowSize(window.getSize().x, window.getSize().y);
     sf::Vector2f titlePosition = sf::Vector2f(windowSize.x * 0.34f, windowSize.y * 0.04f);
-    sf::Vector2f soundPosition = sf::Vector2f(windowSize.x * 0.42f, windowSize.y * 0.2080f);
-    sf::Vector2f effectPosition = sf::Vector2f(windowSize.x * 0.56f, windowSize.y * 0.2080f);
-    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.37f, windowSize.y * 0.358);
-    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.592f, windowSize.y * 0.507f);
-    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.498f, windowSize.y * 0.658f);
-    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.595f, windowSize.y * 0.808f);
+    sf::Vector2f soundEffectPosition = sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.364); 
+    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.478f, windowSize.y * 0.52);
+    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.22);
+    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.56, windowSize.y * 0.662);
+    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.82);
 
     // Create "Settings" text
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
-    Text soundText(font, "Sound", 60, sf::Color::White, sf::Color::Black, 6.0f, soundPosition);
-    Text effectText(font, "Effects", 60, sf::Color::White, sf::Color::Black, 6.0f, effectPosition);
+    Text soundEffectText(font, "Sound Effects", 40, sf::Color::White, sf::Color::Black, 6.0f, soundEffectPosition);
 
-    Text scoreMultiplierText(font, "Score Multiplier", 60, sf::Color::White, sf::Color::Black, 6.0f, scoreMultiplierPosition);
-    Text hintText(font, "Hints", 60, sf::Color::White, sf::Color::Black, 6.0f, hintPosition);
-    Text powerupText(font, "Powerups", 60, sf::Color::White, sf::Color::Black, 6.0f, powerupPosition);
-    Text backText(font, "Back", 60, sf::Color::White, sf::Color::Black, 6.0f, backPosition);
+    Text scoreMultiplierText(font, "Score Multiplier", 40, sf::Color::White, sf::Color::Black, 6.0f, scoreMultiplierPosition);
+    Text hintText(font, "Hints", 40, sf::Color::White, sf::Color::Black, 6.0f, hintPosition);
+    Text powerupText(font, "Powerups", 40, sf::Color::White, sf::Color::Black, 6.0f, powerupPosition);
+    Text backText(font, "Back", 40, sf::Color::White, sf::Color::Black, 6.0f, backPosition);
 
     // Initialize button labels based on user settings
     sf::Color soundButtonColor = userSettings.areEffectsEnabled() ? sf::Color::Green : sf::Color::Red;
@@ -328,8 +326,9 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         window.clear();
 
         titleText.render(window) ;
-        soundText.render(window) ;
-        effectText.render(window) ;
+        // soundText.render(window) ;
+        // effectText.render(window) ;
+        soundEffectText.render(window) ;
         scoreMultiplierText.render(window) ;
         hintText.render(window) ;
         powerupText.render(window) ;
