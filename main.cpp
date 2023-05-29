@@ -134,13 +134,13 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Vector2f soundEffectPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.366f); 
     sf::Vector2f soundDimension = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.516f);
     sf::Vector2f wordDimension = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.665f);
-    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.814f);
+    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.817f);
 
-    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.22f);
+    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.67f, windowSize.y * 0.22f);
     sf::Vector2f timerPosition = sf::Vector2f(windowSize.x * 0.59f, windowSize.y * 0.366f);
-    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.56f, windowSize.y * 0.516f);
-    sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.42f, windowSize.y * 0.665f);
-    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.814f);
+    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.6f, windowSize.y * 0.516f);
+    sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.665f);
+    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.675f, windowSize.y * 0.817f);
 
     // Create "Settings" text
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
@@ -170,16 +170,16 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     std::string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
-    Button soundeffectButton(1140, 300, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
-    Button scoreMultiplierButton(1140, 525, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
-    Button hintButton(1140, 750, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
-    Button powerupButton(1140, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
+    Button hintButton(1140, 300, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
+    Button soundeffectButton(400, 523, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
+    Button scoreMultiplierButton(430, 1200, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
+    Button powerupButton(1140, 750, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
     Button backButton(1140, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
 
     //Create slider
     sf::RectangleShape soundSlider(sf::Vector2f(200, 20));
     soundSlider.setFillColor(sf::Color::White);
-    soundSlider.setPosition(300, 280);
+    soundSlider.setPosition(windowSize.x * 0.215f, windowSize.y * 0.52f);
 
     // Slider handle properties
     sf::RectangleShape soundHandle(sf::Vector2f(20, 40));
@@ -188,7 +188,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
     sf::Text valueText("", font, 30);
     valueText.setFillColor(sf::Color::White);
-    valueText.setPosition(400, 400);
+    valueText.setPosition(windowSize.x * 0.271f, windowSize.y * 0.538f);
 
     float sliderMin = soundSlider.getPosition().x;
     float sliderMax = soundSlider.getPosition().x + soundSlider.getSize().x;
@@ -319,19 +319,23 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             else if (event.type == sf::Event::MouseButtonReleased) {
                 isDragging = false;
             }
-            else if (event.type == sf::Event::MouseMoved) {
-                if (isDragging) {
-                    sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
-                    float clampedX = std::max(sliderMin, std::min(sliderMax - handleWidth, mousePos.x));
-                    float normalizedX = (clampedX - sliderMin) / (sliderMax - sliderMin - handleWidth);
-                    sliderValue = static_cast<int>(normalizedX * 100);
-                    soundHandle.setPosition(clampedX, soundHandle.getPosition().y);
-
-                    //Calculate and display the current value
-                    stringstream ss;
-                    ss << "Current Volume " << sliderValue;
-                    valueText.setString(ss.str());
+            else if (event.type == sf::Event::MouseMoved && isDragging) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                float mouseX = static_cast<float>(mousePos.x);
+                // Clamp the mouse position to the slider bounds
+                if (mouseX < sliderMin) {
+                    mouseX = sliderMin;
+                } else if (mouseX > sliderMax) {
+                    mouseX = sliderMax;
                 }
+                // Calculate the new slider value based on the mouse position
+                sliderValue = static_cast<int>((mouseX - sliderMin) / (sliderMax - sliderMin) * 100.0f);
+                // Move the slider handle based on the new value
+                soundHandle.setPosition(mouseX - handleWidth * 0.5f, soundHandle.getPosition().y);
+                // Update the value text
+                std::ostringstream oss;
+                oss << sliderValue;
+                valueText.setString(oss.str());
             }
         }
 
