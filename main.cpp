@@ -142,7 +142,6 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.665f);
     sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.675f, windowSize.y * 0.817f);
 
-    // Create "Settings" text
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
     Text dimensionText(font, "Dimensions", 40, sf::Color::White, sf::Color::Black, 6.0f, dimensionPosition);
@@ -198,6 +197,27 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     int sliderValue = 50;
     soundHandle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, soundHandle.getPosition().y);
     
+    //Create text input
+    sf::Text inputText("", font, 40);
+    inputText.setFillColor(sf::Color::Black);
+    inputText.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
+
+    sf::RectangleShape inputBox;
+    inputBox.setSize(sf::Vector2f(250.0f, 45.0f));
+    inputBox.setFillColor(sf::Color::White);
+    inputBox.setOutlineColor(sf::Color::Black);
+    inputBox.setOutlineThickness(1.0f);
+    inputBox.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
+
+    sf::RectangleShape cursor;
+    cursor.setSize(sf::Vector2f(2.0f, 40.0f));
+    cursor.setFillColor(sf::Color::Black);
+
+    std::string inputString;
+    bool showCursor = true;
+    sf::Clock cursorTimer;
+    const sf::Time cursorInterval = sf::seconds(0.5f);
+
     while (window.isOpen()) {
         // Handle events
         sf::Event event;
@@ -337,6 +357,20 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                 oss << sliderValue;
                 valueText.setString(oss.str());
             }
+            else if (event.type == sf::Event::TextEntered){
+                if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
+                    inputString += static_cast<char>(event.text.unicode);
+                    inputText.setString(inputString);
+                }
+                else if (event.text.unicode == 8 && !inputText.getString().isEmpty()) {// Check if the entered character is the backspace key
+                    inputString.pop_back();
+                    inputText.setString(inputString);
+                }
+                else if (event.text.unicode == 13 && !inputString.empty()) {// Check if the entered character is the enter key
+                    // Save the input when Enter key is pressed
+                    cout << "Input: " << inputString << endl;
+                }
+            }
         }
 
         window.clear();
@@ -363,6 +397,23 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         window.draw(soundSlider);
         window.draw(soundHandle);
         window.draw(valueText);
+        
+        // Cursor blinking
+        if (cursorTimer.getElapsedTime() >= cursorInterval)
+        {
+            showCursor = !showCursor;
+            cursorTimer.restart();
+        }
+
+        // Update cursor position
+        cursor.setPosition(inputBox.getPosition().x + inputText.getLocalBounds().width + 2, inputBox.getPosition().y + 3);
+
+        window.draw(inputBox);
+        window.draw(inputText);
+        
+        // Draw cursor if it's visible
+        if (showCursor)
+            window.draw(cursor);
         
         // Display the window
         window.display();
