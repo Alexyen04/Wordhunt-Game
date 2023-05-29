@@ -129,20 +129,32 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     // Calculate relative positions based on window size
     sf::Vector2f windowSize(window.getSize().x, window.getSize().y);
     sf::Vector2f titlePosition = sf::Vector2f(windowSize.x * 0.34f, windowSize.y * 0.04f);
-    sf::Vector2f soundEffectPosition = sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.364); 
-    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.478f, windowSize.y * 0.52);
-    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.22);
-    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.56, windowSize.y * 0.662);
-    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.82);
+
+    sf::Vector2f dimensionPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.22f);
+    sf::Vector2f soundEffectPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.366f); 
+    sf::Vector2f soundDimension = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.516f);
+    sf::Vector2f wordDimension = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.665f);
+    sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.814f);
+
+    sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.22f);
+    sf::Vector2f timerPosition = sf::Vector2f(windowSize.x * 0.59f, windowSize.y * 0.366f);
+    sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.56f, windowSize.y * 0.516f);
+    sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.42f, windowSize.y * 0.665f);
+    sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.62f, windowSize.y * 0.814f);
 
     // Create "Settings" text
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
+    Text dimensionText(font, "Dimensions", 40, sf::Color::White, sf::Color::Black, 6.0f, dimensionPosition);
     Text soundEffectText(font, "Sound Effects", 40, sf::Color::White, sf::Color::Black, 6.0f, soundEffectPosition);
-
+    Text soundText(font, "Sound %", 40, sf::Color::White, sf::Color::Black, 6.0f, soundDimension);
+    Text wordText(font, "Word Limit", 40, sf::Color::White, sf::Color::Black, 6.0f, wordDimension);
     Text scoreMultiplierText(font, "Score Multiplier", 40, sf::Color::White, sf::Color::Black, 6.0f, scoreMultiplierPosition);
+
     Text hintText(font, "Hints", 40, sf::Color::White, sf::Color::Black, 6.0f, hintPosition);
+    Text timerText(font, "Timer Amount", 40, sf::Color::White, sf::Color::Black, 6.0f, timerPosition);
     Text powerupText(font, "Powerups", 40, sf::Color::White, sf::Color::Black, 6.0f, powerupPosition);
+    Text customText(font, "Custom Word List", 40, sf::Color::White, sf::Color::Black, 6.0f, wordListPosition);
     Text backText(font, "Back", 40, sf::Color::White, sf::Color::Black, 6.0f, backPosition);
 
     // Initialize button labels based on user settings
@@ -158,33 +170,33 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     std::string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
-    Button soundeffectButton(1075, 300, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
-    Button scoreMultiplierButton(1075, 525, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
-    Button hintButton(1075, 750, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
-    Button powerupButton(1075, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
-    Button backButton(1075, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
+    Button soundeffectButton(1140, 300, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
+    Button scoreMultiplierButton(1140, 525, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
+    Button hintButton(1140, 750, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
+    Button powerupButton(1140, 975, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
+    Button backButton(1140, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
 
     //Create slider
-    sf::RectangleShape slider(sf::Vector2f(200, 20));
-    slider.setFillColor(sf::Color::White);
-    slider.setPosition(300, 280);
+    sf::RectangleShape soundSlider(sf::Vector2f(200, 20));
+    soundSlider.setFillColor(sf::Color::White);
+    soundSlider.setPosition(300, 280);
 
     // Slider handle properties
-    sf::RectangleShape handle(sf::Vector2f(20, 40));
-    handle.setFillColor(sf::Color::Red);
-    handle.setPosition(slider.getPosition().x - handle.getSize().x * 0.5f, slider.getPosition().y - handle.getSize().y * 0.5f);
+    sf::RectangleShape soundHandle(sf::Vector2f(20, 40));
+    soundHandle.setFillColor(sf::Color::Red);
+    soundHandle.setPosition(soundSlider.getPosition().x - soundHandle.getSize().x * 0.5f, soundSlider.getPosition().y - soundHandle.getSize().y * 0.5f);
 
     sf::Text valueText("", font, 30);
     valueText.setFillColor(sf::Color::White);
     valueText.setPosition(400, 400);
 
-    float sliderMin = slider.getPosition().x;
-    float sliderMax = slider.getPosition().x + slider.getSize().x;
-    float handleWidth = handle.getSize().x;
+    float sliderMin = soundSlider.getPosition().x;
+    float sliderMax = soundSlider.getPosition().x + soundSlider.getSize().x;
+    float handleWidth = soundHandle.getSize().x;
     bool isDragging = false;
 
     int sliderValue = 50;
-    handle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, handle.getPosition().y);
+    soundHandle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, soundHandle.getPosition().y);
     
     while (window.isOpen()) {
         // Handle events
@@ -202,7 +214,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                if (handle.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if (soundHandle.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
                     isDragging = true;
                 }
                 if (event.mouseButton.button == sf::Mouse::Left) {
@@ -313,7 +325,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                     float clampedX = std::max(sliderMin, std::min(sliderMax - handleWidth, mousePos.x));
                     float normalizedX = (clampedX - sliderMin) / (sliderMax - sliderMin - handleWidth);
                     sliderValue = static_cast<int>(normalizedX * 100);
-                    handle.setPosition(clampedX, handle.getPosition().y);
+                    soundHandle.setPosition(clampedX, soundHandle.getPosition().y);
 
                     //Calculate and display the current value
                     stringstream ss;
@@ -326,12 +338,16 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         window.clear();
 
         titleText.render(window) ;
-        // soundText.render(window) ;
-        // effectText.render(window) ;
+        dimensionText.render(window) ;
         soundEffectText.render(window) ;
+        soundText.render(window) ;
+        wordText.render(window) ;
         scoreMultiplierText.render(window) ;
+        
         hintText.render(window) ;
+        timerText.render(window) ;
         powerupText.render(window) ;
+        customText.render(window) ;
         backText.render(window) ;
 
         soundeffectButton.render(&window);
@@ -340,8 +356,8 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         powerupButton.render(&window);
         backButton.render(&window);
 
-        window.draw(slider);
-        window.draw(handle);
+        window.draw(soundSlider);
+        window.draw(soundHandle);
         window.draw(valueText);
         
         // Display the window
