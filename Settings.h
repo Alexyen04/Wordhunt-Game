@@ -1,5 +1,4 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#include <vector>
 
 class Settings {
 public:
@@ -8,8 +7,16 @@ public:
           effectsEnabled(false),
           scoreMultiplierEnabled(false),
           hintsEnabled(false),
-          powerupsEnabled(false)
+          powerupsEnabled(false),
+          setDimensions(4),
+          setSoundPercent(50),
+          setWordLimit(17),
+          setCustomWordList(new std::vector<DataType>()) // Initialize as a pointer to an empty vector
     {
+    }
+
+    ~Settings() {
+        delete setCustomWordList; // Deallocate memory for the vector
     }
 
     bool isSoundEnabled() const {
@@ -52,12 +59,46 @@ public:
         powerupsEnabled = enabled;
     }
 
+    int getDimensions() const {
+        return setDimensions;
+    }
+
+    void setDimensions(int dimensions) {
+        setDimensions = dimensions;
+    }
+
+    int getSoundPercent() const {
+        return setSoundPercent;
+    }
+
+    void setSoundPercent(int percent) {
+        setSoundPercent = percent;
+    }
+
+    int getWordLimit() const {
+        return setWordLimit;
+    }
+
+    void setWordLimit(int limit) {
+        setWordLimit = limit;
+    }
+
+    std::vector<DataType>* getCustomWordList() const {
+        return setCustomWordList;
+    }
+
+    void addToCustomWordList(const DataType& word) {
+        setCustomWordList->push_back(word);
+    }
+
 private:
     bool soundEnabled;
     bool effectsEnabled;
     bool scoreMultiplierEnabled;
     bool hintsEnabled;
     bool powerupsEnabled;
+    int setDimensions;
+    int setSoundPercent;
+    int setWordLimit;
+    std::vector<DataType>* setCustomWordList; // Pointer to vector
 };
-
-#endif // SETTINGS_H
