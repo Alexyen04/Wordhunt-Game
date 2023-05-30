@@ -440,6 +440,9 @@ void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
     // Create the title text
     Text titleText(font, "Game", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
+    Board board(300.f, 300.f, 800.f, 800.f, &font, "Example Board");
+    board.fillBoard(4, 4) ;
+
     // Game loop
     while (window.isOpen()) {
         // Handle events
@@ -458,6 +461,7 @@ void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
         window.clear();
 
         titleText.render(window);
+        board.render(&window);
         
         window.display();
     }
