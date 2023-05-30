@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 
 class Settings {
 public:
@@ -8,15 +9,15 @@ public:
           scoreMultiplierEnabled(false),
           hintsEnabled(false),
           powerupsEnabled(false),
-          setDimensions(4),
-          setSoundPercent(50),
-          setWordLimit(17),
-          setCustomWordList(new std::vector<DataType>()) // Initialize as a pointer to an empty vector
+          dimensions(4),
+          soundPercent(50),
+          wordLimit(17),
+          customWordList(new std::vector<std::string>()) // Initialize as a pointer to an empty vector
     {
     }
 
     ~Settings() {
-        delete setCustomWordList; // Deallocate memory for the vector
+        delete customWordList; // Deallocate memory for the vector
     }
 
     bool isSoundEnabled() const {
@@ -60,35 +61,42 @@ public:
     }
 
     int getDimensions() const {
-        return setDimensions;
+        return dimensions;
     }
 
     void setDimensions(int dimensions) {
-        setDimensions = dimensions;
+        this->dimensions = dimensions;
     }
 
     int getSoundPercent() const {
-        return setSoundPercent;
+        return soundPercent;
     }
 
     void setSoundPercent(int percent) {
-        setSoundPercent = percent;
+        soundPercent = percent;
     }
 
     int getWordLimit() const {
-        return setWordLimit;
+        return wordLimit;
     }
 
     void setWordLimit(int limit) {
-        setWordLimit = limit;
+        wordLimit = limit;
     }
 
-    std::vector<DataType>* getCustomWordList() const {
-        return setCustomWordList;
+    std::string getCustomWordList(int index) const {
+        if (index >= 0 && index < customWordList->size()) {
+            return (*customWordList)[index];
+        }
+        else {
+            // Handle the case when the index is out of bounds
+            // You can throw an exception or return a default value as per your requirements
+            throw std::out_of_range("Index out of bounds");
+        }
     }
 
-    void addToCustomWordList(const DataType& word) {
-        setCustomWordList->push_back(word);
+    void addToCustomWordList(const std::string& word) {
+        customWordList->push_back(word);
     }
 
 private:
@@ -97,8 +105,8 @@ private:
     bool scoreMultiplierEnabled;
     bool hintsEnabled;
     bool powerupsEnabled;
-    int setDimensions;
-    int setSoundPercent;
-    int setWordLimit;
-    std::vector<DataType>* setCustomWordList; // Pointer to vector
+    int dimensions;
+    int soundPercent;
+    int wordLimit;
+    std::vector<std::string>* customWordList; // Pointer to vector
 };

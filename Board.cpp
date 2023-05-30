@@ -19,9 +19,30 @@ Board::Board(float x, float y, float width, float height,
 
 Board::~Board() { }
 
-void Board::fillBoard(int rows, int columns){
-    
+void Board::fillBoard(int rows, int columns) {
+    srand(time(NULL));
+    float pieceWidth = shape.getSize().x / columns;
+    float pieceHeight = shape.getSize().y / rows;
+    float offsetX = shape.getPosition().x;
+    float offsetY = shape.getPosition().y;
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            float x = offsetX + j * pieceWidth;
+            float y = offsetY + i * pieceHeight;
+
+            // Generate a random letter
+            char randomLetter = 'A' + rand() % 26;
+
+            // Create a new Piece object with the random letter
+            Piece piece(x, y, pieceWidth, pieceHeight, font, std::string(1, randomLetter), sf::Color::White, sf::Color::Red, sf::Color::Green);
+
+            // Add the piece to the boardChars vector
+            boardChars.push_back(piece);
+        }
+    }
 }
+
 void Board::render(sf::RenderTarget* target) {
     target -> draw(this -> shape);
     target -> draw(this -> text);
