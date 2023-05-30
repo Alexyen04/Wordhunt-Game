@@ -14,6 +14,7 @@ using namespace std;
 
 void settingScreen(sf::RenderWindow& window, Settings &userSettings) ;
 void mainMenu(sf::RenderWindow& window, Settings &userSettings) ;
+void gameScreen(sf::RenderWindow& window, Settings &userSettings) ;
 
 // Function to get the mouse position relative to the window
 sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
@@ -96,6 +97,7 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
                     // Check if play button is clicked
                     if (playButton.isPressed()) {
                         // Do something when "Play" button is clicked
+                        gameScreen(window, userSettings);
                     }
                     // Check if settings button is clicked
                     if (settingsButton.isPressed()) {
@@ -416,6 +418,47 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             window.draw(cursor);
         
         // Display the window
+        window.display();
+    }
+}
+
+void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
+    // Clear the window
+    window.clear(sf::Color::White);
+
+    // Load the font
+    sf::Font font;
+    if (!font.loadFromFile("Poppins-Black.ttf")) {
+        return;
+    }
+
+    // Calculate relative positions and sizes based on window size
+    float windowWidth = static_cast<float>(window.getSize().x);
+    float windowHeight = static_cast<float>(window.getSize().y);
+    sf::Vector2f titlePosition(windowWidth * 0.100f, windowHeight * 0.033f);
+
+    // Create the title text
+    Text titleText(font, "Game", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
+
+    // Game loop
+    while (window.isOpen()) {
+        // Handle events
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                }
+            }
+        }
+
+        window.clear();
+
+        titleText.render(window);
+        
         window.display();
     }
 }
