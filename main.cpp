@@ -200,25 +200,67 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     soundHandle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, soundHandle.getPosition().y);
     
     //Create text input
-    sf::Text inputText("", font, 40);
-    inputText.setFillColor(sf::Color::Black);
-    inputText.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
+    sf::Text timeInputText("", font, 40);
+    timeInputText.setFillColor(sf::Color::Black);
+    timeInputText.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
 
-    sf::RectangleShape inputBox;
-    inputBox.setSize(sf::Vector2f(250.0f, 45.0f));
-    inputBox.setFillColor(sf::Color::White);
-    inputBox.setOutlineColor(sf::Color::Black);
-    inputBox.setOutlineThickness(1.0f);
-    inputBox.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
+    sf::Text dimensionInputText("", font, 40);
+    dimensionInputText.setFillColor(sf::Color::Black);
+    dimensionInputText.setPosition(windowSize.x * 0.24f, windowSize.y * 0.12);
+    
+    sf::Text limitInputText("", font, 40);
+    limitInputText.setFillColor(sf::Color::Black);
+    limitInputText.setPosition(windowSize.x * 0.24, windowSize.y * 0.506);
 
-    sf::RectangleShape cursor;
-    cursor.setSize(sf::Vector2f(2.0f, 40.0f));
-    cursor.setFillColor(sf::Color::Black);
+    sf::RectangleShape timerBox;
+    timerBox.setSize(sf::Vector2f(250.0f, 45.0f));
+    timerBox.setFillColor(sf::Color::White);
+    timerBox.setOutlineColor(sf::Color::Black);
+    timerBox.setOutlineThickness(1.0f);
+    timerBox.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
 
-    std::string inputString;
-    bool showCursor = true;
-    sf::Clock cursorTimer;
-    const sf::Time cursorInterval = sf::seconds(0.5f);
+    sf::RectangleShape dimensionBox;
+    dimensionBox.setSize(sf::Vector2f(250.0f, 45.0f));
+    dimensionBox.setFillColor(sf::Color::White);
+    dimensionBox.setOutlineColor(sf::Color::Black);
+    dimensionBox.setOutlineThickness(1.0f);
+    dimensionBox.setPosition(windowSize.x * 0.24f, windowSize.y * 0.12f);
+
+    sf::RectangleShape wordLimitBox;
+    wordLimitBox.setSize(sf::Vector2f(250.0f, 45.0f));
+    wordLimitBox.setFillColor(sf::Color::White);
+    wordLimitBox.setOutlineColor(sf::Color::Black);
+    wordLimitBox.setOutlineThickness(1.0f);
+    wordLimitBox.setPosition(windowSize.x * 0.24f, windowSize.y * 0.506f);
+
+    sf::RectangleShape timeCursor;
+    timeCursor.setSize(sf::Vector2f(2.0f, 40.0f));
+    timeCursor.setFillColor(sf::Color::Black);
+
+    sf::RectangleShape dimensionCursor;
+    dimensionCursor.setSize(sf::Vector2f(2.0f, 40.0f));
+    dimensionCursor.setFillColor(sf::Color::Black);
+
+    sf::RectangleShape limitCursor;
+    limitCursor.setSize(sf::Vector2f(2.0f, 40.0f));
+    limitCursor.setFillColor(sf::Color::Black);
+
+    string timeInputString;
+    string dimensionInputString;
+    string limitInputString;
+
+    bool showTimeCursor = true;
+    bool showDimensionCursor = true;
+    bool showLimitCursor = true;
+
+    sf::Clock timeCursorTimer;
+    const sf::Time timeCursorInterval = sf::seconds(0.5f);
+
+    sf::Clock dimensionCursorTimer;
+    const sf::Time dimensionCursorInterval = sf::seconds(0.5f);
+
+    sf::Clock limitCursorTimer;
+    const sf::Time limitCursorInterval = sf::seconds(0.5f);
 
     while (window.isOpen()) {
         // Handle events
@@ -359,18 +401,53 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                 oss << sliderValue;
                 valueText.setString(oss.str());
             }
-            else if (event.type == sf::Event::TextEntered){
-                if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
-                    inputString += static_cast<char>(event.text.unicode);
-                    inputText.setString(inputString);
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+            if (timerBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
+                        timeInputString += static_cast<char>(event.text.unicode);
+                        timeInputText.setString(timeInputString);
+                    }
+                    else if (event.text.unicode == 8 && !timeInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
+                        timeInputString.pop_back();
+                        timeInputText.setString(timeInputString);
+                    }
+                    else if (event.text.unicode == 13 && !timeInputString.empty()) {// Check if the entered character is the enter key
+                        // Save the input when Enter key is pressed
+                        cout << "Input: " << timeInputString << endl;
+                    }
                 }
-                else if (event.text.unicode == 8 && !inputText.getString().isEmpty()) {// Check if the entered character is the backspace key
-                    inputString.pop_back();
-                    inputText.setString(inputString);
+            }
+            else if (dimensionBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
+                        dimensionInputString += static_cast<char>(event.text.unicode);
+                        dimensionInputText.setString(dimensionInputString);
+                    }
+                    else if (event.text.unicode == 8 && !dimensionInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
+                        dimensionInputString.pop_back();
+                        dimensionInputText.setString(dimensionInputString);
+                    }
+                    else if (event.text.unicode == 13 && !dimensionInputString.empty()) {// Check if the entered character is the enter key
+                        // Save the input when Enter key is pressed
+                        cout << "Input: " << dimensionInputString << endl;
+                    }
                 }
-                else if (event.text.unicode == 13 && !inputString.empty()) {// Check if the entered character is the enter key
-                    // Save the input when Enter key is pressed
-                    cout << "Input: " << inputString << endl;
+            }
+            else if (wordLimitBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
+                        limitInputString += static_cast<char>(event.text.unicode);
+                        limitInputText.setString(limitInputString);
+                    }
+                    else if (event.text.unicode == 8 && !limitInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
+                        limitInputString.pop_back();
+                        limitInputText.setString(limitInputString);
+                    }
+                    else if (event.text.unicode == 13 && !limitInputString.empty()) {// Check if the entered character is the enter key
+                        // Save the input when Enter key is pressed
+                        cout << "Input: " << limitInputString << endl;
+                    }
                 }
             }
         }
@@ -403,19 +480,34 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
         // Cursor blinking
         if (cursorTimer.getElapsedTime() >= cursorInterval)
         {
-            showCursor = !showCursor;
+            showTimeCursor = !showTimeCursor;
+            showDimensionCursor = !showDimensionCursor;
+            showLimitCursor = !showLimitCursor;
+
             cursorTimer.restart();
         }
 
         // Update cursor position
-        cursor.setPosition(inputBox.getPosition().x + inputText.getLocalBounds().width + 2, inputBox.getPosition().y + 3);
+        timeCursor.setPosition(timerBox.getPosition().x + timeInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
+        dimensionCursor.setPosition(dimensionBox.getPosition().x + dimensionInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
+        limitCursor.setPosition(wordLimitBox.getPosition().x + limitInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
 
-        window.draw(inputBox);
-        window.draw(inputText);
+        window.draw(timerBox);
+        window.draw(timeInputText);
+
+        window.draw(dimensionBox);
+        window.draw(dimensionInputText);
+
+        window.draw(wordLimitBox);
+        window.draw(limitInputText);
         
         // Draw cursor if it's visible
-        if (showCursor)
-            window.draw(cursor);
+        if (showTimeCursor)
+            window.draw(timeCursor);
+        if (showLimitCursor)
+            window.draw(limitCursor);
+        if (showLimitCursor)
+            window.draw(dimensionCursor);
         
         // Display the window
         window.display();
