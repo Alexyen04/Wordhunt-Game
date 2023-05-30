@@ -14,7 +14,7 @@ using namespace std;
 
 void settingScreen(sf::RenderWindow& window, Settings &userSettings) ;
 void mainMenu(sf::RenderWindow& window, Settings &userSettings) ;
-void gameScreen(sf::RenderWindow& window, Settings &userSettings) ;
+void gameScreen(sf::RenderWindow& window, Settings& userSettings ) ;
 
 // Function to get the mouse position relative to the window
 sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
@@ -422,15 +422,15 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     }
 }
 
-void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
+void gameScreen(sf::RenderWindow& window, Settings& userSettings)
+{
     // Clear the window
-    window.clear(sf::Color::White);
-
-    // Load the font
     sf::Font font;
     if (!font.loadFromFile("Poppins-Black.ttf")) {
         return;
     }
+
+    window.clear(sf::Color::White);
 
     // Calculate relative positions and sizes based on window size
     float windowWidth = static_cast<float>(window.getSize().x);
@@ -440,32 +440,42 @@ void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
     // Create the title text
     Text titleText(font, "Game", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
-    Board board(300.f, 300.f, 800.f, 800.f, &font, "Example Board");
-    board.fillBoard(4, 4) ;
+    unsigned int boardDimensions = userSettings.getDimensions() ;
+    Board board(boardDimensions);
 
     // Game loop
-    while (window.isOpen()) {
+
+    // Game loop
+    while (window.isOpen())
+    {
         // Handle events
         sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
                 window.close();
             }
 
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    // Handle left mouse button press
                 }
             }
         }
 
         window.clear();
 
-        titleText.render(window);
-        board.render(&window);
-        
+        titleText.render(window); // Implement the render function for your Text class
+
+        board.render(window); // Implement the render function for your Board class
+
         window.display();
     }
 }
+
 
 
 int main() {
