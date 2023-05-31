@@ -3,10 +3,7 @@
 Board::Board(unsigned int dimensions)
     : dimensions(dimensions), hoverPiece(nullptr), isMousePressed(false)
 {
-    int windowSize = 1500;
-
-    board.setSize(sf::Vector2f(windowSize, windowSize));
-    board.setFillColor(sf::Color(200, 200, 200));
+    int windowSize = 1300;
 
     pieces.reserve(dimensions * dimensions);
     pieceSelected.resize(dimensions * dimensions, false);
@@ -15,8 +12,8 @@ Board::Board(unsigned int dimensions)
     {
         for (unsigned int col = 0; col < dimensions; ++col)
         {
-            float x = col * pieceSize;
-            float y = row * pieceSize;
+            float x = col * pieceSize + 100 ;
+            float y = row * pieceSize + 100 ;
             pieces.emplace_back(x, y, pieceSize, 'A' + (row * dimensions + col));
         }
     }
