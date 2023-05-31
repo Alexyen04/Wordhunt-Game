@@ -1,51 +1,110 @@
 #include "Board.h"
 
-Board::Board(float x, float y, float width, float height, 
-        sf::Font* font, std::string text) 
+Board::Board(unsigned int dimensions)
+    : dimensions(dimensions), hoverPiece(nullptr), isMousePressed(false)
 {
-    this -> shape.setPosition(sf::Vector2f(x, y)) ;
-    this -> shape.setSize(sf::Vector2f(width, height)) ;
-    this -> font = font ;
-    this -> text.setFont(*this -> font) ;
-    this -> text.setString(text) ;
-    this -> text.setFillColor(sf::Color::Black) ;
-    this -> text.setCharacterSize(150) ;
-    this -> text.setPosition(
-        this -> shape.getPosition().x + (width - this->text.getGlobalBounds().width) / 2.0f, 
-        0.5*(this -> shape.getPosition().y) 
-    ) ;
-    this -> shape.setFillColor(sf::Color::White) ;
-}
+    int windowSize = 1500;
 
-Board::~Board() { }
+    board.setSize(sf::Vector2f(windowSize, windowSize));
+    board.setFillColor(sf::Color(200, 200, 200));
 
-void Board::fillBoard(int rows, int columns) {
-    srand(time(NULL));
-    float pieceWidth = shape.getSize().x / columns;
-    float pieceHeight = shape.getSize().y / rows;
-    float offsetX = shape.getPosition().x;
-    float offsetY = shape.getPosition().y;
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            float x = offsetX + j * pieceWidth;
-            float y = offsetY + i * pieceHeight;
-
-            // Generate a random letter
-            char randomLetter = 'A' + rand() % 26;
-
-            // Create a new Piece object with the random letter
-            Piece piece(x, y, pieceWidth, pieceHeight, font, std::string(1, randomLetter), sf::Color::White, sf::Color::Red, sf::Color::Green);
-
-            // Add the piece to the boardChars vector
-            boardChars.push_back(piece);
+    pieces.reserve(dimensions * dimensions);
+    pieceSelected.resize(dimensions * dimensions, false);
+    float pieceSize = static_cast<float>(windowSize) / dimensions;
+    for (unsigned int row = 0; row < dimensions; ++row)
+    {
+        for (unsigned int col = 0; col < dimensions; ++col)
+        {
+            float x = col * pieceSize;
+            float y = row * pieceSize;
+            pieces.emplace_back(x, y, pieceSize, 'A' + (row * dimensions + col));
         }
     }
 }
 
-void Board::render(sf::RenderTarget* target) {
-    target -> draw(this -> shape);
-    target -> draw(this -> text);
+void Board::update(const sf::Vector2f& mousePosition)
+{
+    hoverPiece = nullptr;
 
+    // Track whether any piece was clicked or not
+    bool pieceClicked = false;
 
+    for (size_t i = 0; i < pieces.size(); ++i)
+    {
+        if (pieces[i].getGlobalBounds().contains(mousePosition))
+        {
+            hoverPiece = &pieces[i];
+
+            if (isMousePressed)
+            {
+                // Toggle the selection state of the clicked piece
+                pieceSelected[i] = !pieceSelected[i];
+                pieceClicked = true;
+            }
+            break;
+        }
+    }
+
+    // If a piece was clicked, update the selection state of all pieces under the mouse
+    if (pieceClicked)
+    {
+        bool highlight = pieceSelected[hoverPiece - &pieces[0]];
+
+        for (size_t i = 0; i < pieces.size(); ++i)
+        {
+            if (pieces[i].getGlobalBounds().contains(mousePosition))
+            {
+                pieceSelected[i] = highlight;
+            }
+        }
+    }
+}
+
+void Board::handleEvent(const sf::Event& event)
+{
+    if (event.type == sf::Event::MouseMoved)
+    {
+        sf::Vector2f mousePosition = sf::Vector2f(event.mouseMove.x, event.mouseMove.y) - board.getPosition();
+        update(mousePosition);
+    }
+    else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+    {
+        isMousePressed = true;
+    }
+    else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+    {
+        isMousePressed = false;
+    }
+}
+
+void Board::render(sf::RenderTarget& target) const
+{
+    target.draw(board);
+    sf::RectangleShape highlight;
+    for (size_t i = 0; i < pieces.size(); ++i)
+    {
+        const auto& piece = pieces[i];
+        piece.render(target);
+        if (&piece == hoverPiece || pieceSelected[i])
+        {
+            sf::FloatRect bounds = piece.getGlobalBounds();
+            highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
+            highlight.setPosition(bounds.left, bounds.top);
+            highlight.setFillColor(sf::Color::Green);
+            target.draw(highlight);
+        }
+    }
+}
+
+void Board::initializeRandomLetters()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis('A', 'Z');
+
+    for (auto& piece : pieces)
+    {
+        char randomLetter = static_cast<char>(dis(gen));
+        piece.setLetter(randomLetter);
+    }
 }

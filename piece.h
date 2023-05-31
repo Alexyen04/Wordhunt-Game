@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <SFML/Graphics.hpp>
+#include <random>
 
 class Piece
 {
@@ -14,7 +15,6 @@ public:
         shape.setOutlineThickness(2.0f);
         shape.setOutlineColor(sf::Color::Black);
 
-        text.setString(std::string(1, letter));
         text.setCharacterSize(static_cast<unsigned int>(size * 0.4f)); // Adjust the character size based on the piece size
         text.setFillColor(sf::Color::Black);
         text.setStyle(sf::Text::Bold);
