@@ -437,9 +437,6 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
     float windowHeight = static_cast<float>(window.getSize().y);
     sf::Vector2f titlePosition(windowWidth * 0.100f, windowHeight * 0.033f);
 
-    // Create the title text
-    Text titleText(font, "Game", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
-
     unsigned int boardDimensions = userSettings.getDimensions() ;
     Board board(boardDimensions);
 
@@ -469,8 +466,6 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
         }
 
         window.clear();
-
-        titleText.render(window); // Implement the render function for your Text class
 
         board.render(window); // Implement the render function for your Board class
 
