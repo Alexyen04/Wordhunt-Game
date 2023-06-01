@@ -6,11 +6,10 @@ find_package(SFML 2.5.1 REQUIRED COMPONENTS graphics)
 add_executable(WordHunt 
     main.cpp 
     button.cpp 
-    board.cpp 
-    piece.cpp
     Game.cpp
     GameState.cpp
     State.cpp
+    Board.cpp
 )
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
