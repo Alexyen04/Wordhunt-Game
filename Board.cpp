@@ -46,21 +46,17 @@ void Board::update(const sf::Vector2f& mousePosition, bool isMousePressed)
                     pieceSelected[i] = false;
                 }
             }
+            pieceClicked = true;  // Set pieceClicked to true when a piece is found under the mouse
             break;
         }
     }
 
-    // If a piece was clicked, update the selection state of all pieces under the mouse
-    if (pieceClicked && isMousePressed)
+    // If no piece was clicked and the mouse is pressed, unclick all pieces
+    if (!pieceClicked && isMousePressed)
     {
-        bool highlight = pieceSelected[hoverPiece - &pieces[0]];
-
         for (size_t i = 0; i < pieces.size(); ++i)
         {
-            if (pieces[i].getGlobalBounds().contains(mousePosition))
-            {
-                pieceSelected[i] = highlight;
-            }
+            pieceSelected[i] = false;
         }
     }
 }
@@ -90,14 +86,16 @@ void Board::render(sf::RenderTarget& target) const
     {
         const auto& piece = pieces[i];
         piece.render(target);
-        if (pieceSelected[i])
-        {
-            sf::FloatRect bounds = piece.getGlobalBounds();
-            highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
-            highlight.setPosition(bounds.left, bounds.top);
-            highlight.setFillColor(sf::Color::Green);
-            target.draw(highlight);
-        }
+    if (pieceSelected[i])
+    {
+        sf::FloatRect bounds = piece.getGlobalBounds();
+        highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
+        highlight.setPosition(bounds.left, bounds.top);
+        highlight.setFillColor(sf::Color::Green);
+        highlight.setOutlineThickness(2.0f);  // Set outline thickness
+        highlight.setOutlineColor(sf::Color::Black);  // Set outline color
+        target.draw(highlight);
+    }
     }
 }
 
