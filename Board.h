@@ -9,7 +9,7 @@ class Board
 public:
     Board(unsigned int dimensions);
 
-    void update(const sf::Vector2f& mousePosition);
+    void update(const sf::Vector2f& mousePosition, bool isMousePressed);
     void handleEvent(const sf::Event& event);
     void render(sf::RenderTarget& target) const;
     void initializeRandomLetters();

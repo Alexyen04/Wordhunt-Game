@@ -453,8 +453,8 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
             {
                 window.close();
             }
-
-            board.update(getMousePosition(window));
+            bool isMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+            board.update(getMousePosition(window), isMousePressed);
 
             if (event.type == sf::Event::MouseButtonPressed)
             {

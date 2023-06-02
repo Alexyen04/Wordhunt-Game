@@ -30,13 +30,13 @@ public:
         target.draw(text);
 
         // If the piece is being hovered over, change its fill color to green
-        if (isHovered)
-        {
-            sf::RectangleShape highlight(shape.getSize());
-            highlight.setPosition(position);
-            highlight.setFillColor(sf::Color::Green);
-            target.draw(highlight);
-        }
+        // if (isHovered)
+        // {
+        //     sf::RectangleShape highlight(shape.getSize());
+        //     highlight.setPosition(position);
+        //     highlight.setFillColor(sf::Color::Green);
+        //     target.draw(highlight);
+        // }
     }
 
     sf::FloatRect getGlobalBounds() const

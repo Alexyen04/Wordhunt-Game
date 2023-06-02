@@ -19,7 +19,7 @@ Board::Board(unsigned int dimensions)
     }
 }
 
-void Board::update(const sf::Vector2f& mousePosition)
+void Board::update(const sf::Vector2f& mousePosition, bool isMousePressed)
 {
     hoverPiece = nullptr;
 
@@ -35,15 +35,23 @@ void Board::update(const sf::Vector2f& mousePosition)
             if (isMousePressed)
             {
                 // Toggle the selection state of the clicked piece
-                pieceSelected[i] = !pieceSelected[i];
-                pieceClicked = true;
+                //pieceSelected[i] = !pieceSelected[i];
+                //pieceClicked = true;
+                pieceSelected[i] = true;
+            } 
+            else 
+            {
+                for (size_t i = 0; i < pieces.size(); ++i)
+                {
+                    pieceSelected[i] = false;
+                }
             }
             break;
         }
     }
 
     // If a piece was clicked, update the selection state of all pieces under the mouse
-    if (pieceClicked)
+    if (pieceClicked && isMousePressed)
     {
         bool highlight = pieceSelected[hoverPiece - &pieces[0]];
 
@@ -62,7 +70,7 @@ void Board::handleEvent(const sf::Event& event)
     if (event.type == sf::Event::MouseMoved)
     {
         sf::Vector2f mousePosition = sf::Vector2f(event.mouseMove.x, event.mouseMove.y) - board.getPosition();
-        update(mousePosition);
+        update(mousePosition, isMousePressed);
     }
     else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
     {
@@ -82,7 +90,7 @@ void Board::render(sf::RenderTarget& target) const
     {
         const auto& piece = pieces[i];
         piece.render(target);
-        if (&piece == hoverPiece || pieceSelected[i])
+        if (pieceSelected[i])
         {
             sf::FloatRect bounds = piece.getGlobalBounds();
             highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
