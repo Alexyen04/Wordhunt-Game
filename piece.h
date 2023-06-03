@@ -10,33 +10,26 @@ public:
     Piece(float x, float y, float size, char letter)
         : position(sf::Vector2f(x, y)), size(size), letter(letter), isHovered(false)
     {
-        shape.setPosition(position);
-        shape.setSize(sf::Vector2f(size, size));
-        shape.setOutlineThickness(2.0f);
-        shape.setOutlineColor(sf::Color::Black);
+        if (font.loadFromFile("Poppins-Black.ttf"))
+        {
+            shape.setPosition(position);
+            shape.setSize(sf::Vector2f(size, size));
+            shape.setOutlineThickness(2.0f);
+            shape.setOutlineColor(sf::Color::Black);
 
-        text.setCharacterSize(static_cast<unsigned int>(size * 0.4f)); // Adjust the character size based on the piece size
-        text.setFillColor(sf::Color::Black);
-        text.setStyle(sf::Text::Bold);
+            text.setFont(font);
+            text.setCharacterSize(static_cast<unsigned int>(size * 0.4f));
+            text.setFillColor(sf::Color::Black);
+            text.setStyle(sf::Text::Bold);
 
-        sf::FloatRect bounds = text.getLocalBounds();
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-        text.setPosition(position.x + size / 2.0f, position.y + size / 2.0f);
+            updateText();
+        }
     }
 
     void render(sf::RenderTarget& target) const
     {
         target.draw(shape);
         target.draw(text);
-
-        // If the piece is being hovered over, change its fill color to green
-        // if (isHovered)
-        // {
-        //     sf::RectangleShape highlight(shape.getSize());
-        //     highlight.setPosition(position);
-        //     highlight.setFillColor(sf::Color::Green);
-        //     target.draw(highlight);
-        // }
     }
 
     sf::FloatRect getGlobalBounds() const
@@ -44,29 +37,18 @@ public:
         return shape.getGlobalBounds();
     }
 
-    bool getIsHovered() const
+    void setRandomLetter()
     {
-        return isHovered;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis('A', 'Z');
+        letter = static_cast<char>(dis(gen));
+        updateText();
     }
 
-    void setIsHovered(bool hovered)
+    sf::Text getText() const
     {
-        isHovered = hovered;
-    }
-
-    char getLetter() const
-    {
-        return letter;
-    }
-
-    void setLetter(char newLetter)
-    {
-        letter = newLetter;
-        text.setString(std::string(1, letter));
-
-        sf::FloatRect bounds = text.getLocalBounds();
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-        text.setPosition(position.x + size / 2.0f, position.y + size / 2.0f);
+        return text;
     }
 
 private:
@@ -76,6 +58,16 @@ private:
     bool isHovered;
     sf::RectangleShape shape;
     sf::Text text;
+    sf::Font font;
+
+    void updateText()
+    {
+        text.setString(std::string(1, letter));
+        text.setPosition(position.x + size / 2.0f, position.y + size / 2.0f);
+
+        sf::FloatRect bounds = text.getLocalBounds();
+        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    }
 };
 
-#endif
+#endif // PIECE_H

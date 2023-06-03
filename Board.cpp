@@ -85,29 +85,43 @@ void Board::render(sf::RenderTarget& target) const
     for (size_t i = 0; i < pieces.size(); ++i)
     {
         const auto& piece = pieces[i];
-        piece.render(target);
-    if (pieceSelected[i])
-    {
-        sf::FloatRect bounds = piece.getGlobalBounds();
-        highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
-        highlight.setPosition(bounds.left, bounds.top);
-        highlight.setFillColor(sf::Color::Green);
-        highlight.setOutlineThickness(2.0f);  // Set outline thickness
-        highlight.setOutlineColor(sf::Color::Black);  // Set outline color
-        target.draw(highlight);
-    }
+
+        if (pieceSelected[i])
+        {
+            sf::FloatRect bounds = piece.getGlobalBounds();
+            highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
+            highlight.setPosition(bounds.left, bounds.top);
+            highlight.setFillColor(sf::Color::Transparent); // Set fill color to transparent
+            highlight.setOutlineThickness(2.0f);
+            highlight.setOutlineColor(sf::Color::Green);
+            target.draw(highlight);
+
+        }
+
+        piece.render(target); // Draw the piece, including its text
+
+        if (pieceSelected[i])
+        {
+            sf::FloatRect bounds = piece.getGlobalBounds();
+            highlight.setSize(sf::Vector2f(bounds.width, bounds.height));
+            highlight.setPosition(bounds.left, bounds.top);
+            highlight.setFillColor(sf::Color::Green);
+            highlight.setOutlineThickness(2.0f);
+            highlight.setOutlineColor(sf::Color::Black);
+            target.draw(highlight);
+        }
+
     }
 }
 
+
+
+
+
 void Board::initializeRandomLetters()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis('A', 'Z');
-
     for (auto& piece : pieces)
     {
-        char randomLetter = static_cast<char>(dis(gen));
-        piece.setLetter(randomLetter);
+        piece.setRandomLetter();
     }
 }

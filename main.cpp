@@ -424,12 +424,6 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
 void gameScreen(sf::RenderWindow& window, Settings& userSettings)
 {
-    // Clear the window
-    sf::Font font;
-    if (!font.loadFromFile("Poppins-Black.ttf")) {
-        return;
-    }
-
     window.clear(sf::Color::White);
 
     // Calculate relative positions and sizes based on window size
@@ -439,6 +433,7 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
 
     unsigned int boardDimensions = userSettings.getDimensions() ;
     Board board(boardDimensions);
+    board.initializeRandomLetters() ;
 
     // Game loop
 
