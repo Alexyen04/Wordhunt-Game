@@ -36,14 +36,22 @@ void Piece::setRandomLetter()
     std::mt19937 generator(rd());
 
     // Define the letter distribution based on their frequencies in words
-    std::discrete_distribution<> letterDistribution({ 16, 2, 3, 4, 24, 2, 2, 6, 14, 1, 1, 4, 2,
-                                                      7, 16, 2, 1, 6, 6, 9, 6, 1, 2, 1, 2, 1 });
+    std::discrete_distribution<> letterDistribution({ 12, 2, 3, 8, 18, 2, 2, 6, 14, 1, 1, 4, 2,
+                                                      7, 12, 2, 1, 6, 12, 9, 6, 1, 2, 1, 2, 1 });
 
     // Generate a random letter based on the distribution
     char randomLetter = 'A' + letterDistribution(generator);
     letter = randomLetter;
 
     updateText();
+}
+
+sf::Vector2f Piece::getPosition() const {
+    return position;
+}
+
+sf::Vector2f Piece::getSize() const {
+    return sf::Vector2f(size, size);
 }
 
 sf::Text Piece::getCharacterText() const

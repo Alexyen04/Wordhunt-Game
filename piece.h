@@ -15,6 +15,8 @@ public:
     sf::Text getCharacterText() const;
     char getCharacter() const;
     void setLetter(char newLetter);
+    sf::Vector2f getPosition() const;
+    sf::Vector2f getSize() const;
 
 private:
     void updateText();

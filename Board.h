@@ -28,6 +28,7 @@ private:
     const Piece* hoverPiece;
     bool isMousePressed;
     sf::RectangleShape board;
+    sf::Vector2f mousePosition;
 };
 
 #endif // BOARD_H
