@@ -5,6 +5,9 @@
 #include "piece.h"
 #include <vector>
 #include <iostream>
+#include <unordered_map>
+#include <random>
+
 
 class Board
 {

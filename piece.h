@@ -14,6 +14,7 @@ public:
     void setRandomLetter();
     sf::Text getCharacterText() const;
     char getCharacter() const;
+    void setLetter(char newLetter);
 
 private:
     void updateText();

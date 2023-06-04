@@ -33,9 +33,16 @@ sf::FloatRect Piece::getGlobalBounds() const
 void Piece::setRandomLetter()
 {
     std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis('A', 'Z');
-    letter = static_cast<char>(dis(gen));
+    std::mt19937 generator(rd());
+
+    // Define the letter distribution based on their frequencies in words
+    std::discrete_distribution<> letterDistribution({ 16, 2, 3, 4, 24, 2, 2, 6, 14, 1, 1, 4, 2,
+                                                      7, 16, 2, 1, 6, 6, 9, 6, 1, 2, 1, 2, 1 });
+
+    // Generate a random letter based on the distribution
+    char randomLetter = 'A' + letterDistribution(generator);
+    letter = randomLetter;
+
     updateText();
 }
 
@@ -47,6 +54,12 @@ sf::Text Piece::getCharacterText() const
 char Piece::getCharacter() const
 {
     return letter;
+}
+
+void Piece::setLetter(char newLetter)
+{
+    letter = newLetter;
+    updateText();
 }
 
 void Piece::updateText()
