@@ -18,6 +18,7 @@ public:
     void handleEvent(const sf::Event& event);
     void render(sf::RenderTarget& target) const;
     void printWord();
+    std::vector <std::string> getWordList() { return wordList ; }
 
 private:
     unsigned int dimensions;
