@@ -13,7 +13,6 @@ class Board
 {
 public:
     Board(unsigned int dimensions);
-
     void initializeRandomLetters();
     void update(const sf::Vector2f& mousePosition, bool isMousePressed);
     void handleEvent(const sf::Event& event);
@@ -22,6 +21,8 @@ public:
 
 private:
     unsigned int dimensions;
+    std::string word;
+    std::vector<std::string> wordList;
     std::vector<Piece> pieces;
     std::vector<bool> pieceSelected;
     std::vector<char> characters;

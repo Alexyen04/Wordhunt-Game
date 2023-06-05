@@ -4,7 +4,7 @@ Board::Board(unsigned int dimensions)
     : dimensions(dimensions), hoverPiece(nullptr), isMousePressed(false)
 {
     int windowSize = 1300;
-
+    word = "";
     pieces.reserve(dimensions * dimensions);
     pieceSelected.resize(dimensions * dimensions, false);
     characters.reserve(dimensions * dimensions);
@@ -35,8 +35,11 @@ void Board::update(const sf::Vector2f& mousePosition, bool isMousePressed)
             
             if (isMousePressed)
             {
-                pieceSelected[i] = true;
-                characters.push_back(pieces[i].getCharacter());
+                if (!pieceSelected[i]) // Check if the piece is not already selected
+                {
+                    pieceSelected[i] = true;
+                    word += pieces[i].getCharacter(); // Set the character value directly to the string
+                }
             } 
             else 
             {
@@ -53,11 +56,18 @@ void Board::update(const sf::Vector2f& mousePosition, bool isMousePressed)
     // If no piece was clicked and the mouse is pressed, unclick all pieces
     if (!pieceClicked && isMousePressed)
     {
-        printWord(); // Print the word before clearing the array
-        characters.clear();
         for (size_t i = 0; i < pieces.size(); ++i)
         {
             pieceSelected[i] = false;
+        }
+    }
+    else if (!isMousePressed)
+    {
+        // Mouse is released, print the word and clear it
+        if(!word.empty()) {
+            std::cout << "Selected word: " << word << std::endl;
+            wordList.push_back(word);
+            word.clear();
         }
     }
 }
@@ -120,17 +130,7 @@ void Board::render(sf::RenderTarget& target) const
 
 void Board::printWord()
 {
-    if (!characters.empty())
-    {
-        std::string word(characters.begin(), characters.end());
-        std::cout << "Word: " << word << std::endl;
-    }
-    else
-    {
-        std::cout << "No characters in the array." << std::endl;
-    }
-
-    characters.clear();
+    std::cout << word << std::endl;
 }
 
 void Board::initializeRandomLetters()
