@@ -9,9 +9,10 @@ public:
           scoreMultiplierEnabled(false),
           hintsEnabled(false),
           powerupsEnabled(false),
-          dimensions(4),
+          dimensions("4"),
           soundPercent(50),
-          wordLimit(17),
+          wordLimit("17"),
+          time("80"),
           customWordList(new std::vector<std::string>()) // Initialize as a pointer to an empty vector
     {
     }
@@ -60,11 +61,11 @@ public:
         powerupsEnabled = enabled;
     }
 
-    int getDimensions() const {
+    string getDimensions() const {
         return dimensions;
     }
 
-    void setDimensions(int dimensions) {
+    void setDimensions(string dimensions) {
         this->dimensions = dimensions;
     }
 
@@ -76,12 +77,25 @@ public:
         soundPercent = percent;
     }
 
-    int getWordLimit() const {
+    string getWordLimit() const {
         return wordLimit;
     }
 
-    void setWordLimit(int limit) {
+    void setWordLimit(string limit) {
         wordLimit = limit;
+    }
+
+    string getTime() const {
+        return time;
+    }
+
+    void setTime(string time) {
+        this->time = time;
+    }
+
+    void clearList() {
+        customWordList->clear();
+        std::cout<<"cleared"<<std::endl;
     }
 
     std::string getCustomWordList(int index) const {
@@ -105,8 +119,9 @@ private:
     bool scoreMultiplierEnabled;
     bool hintsEnabled;
     bool powerupsEnabled;
-    int dimensions;
+    string dimensions;
     int soundPercent;
-    int wordLimit;
+    string wordLimit;
+    string time;
     std::vector<std::string>* customWordList; // Pointer to vector
 };

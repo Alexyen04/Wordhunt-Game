@@ -3,6 +3,7 @@
 #include <SFML/System.hpp>
 #include <sstream>
 #include <iostream>
+#include <cctype>
 #include "Button.h"
 #include "Board.h"
 #include "piece.h"
@@ -196,20 +197,23 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     float handleWidth = soundHandle.getSize().x;
     bool isDragging = false;
 
-    int sliderValue = 50;
+    int sliderValue = userSettings.getSoundPercent();
     soundHandle.setPosition(sliderMin + sliderValue * (sliderMax - sliderMin) / 100.0f - handleWidth * 0.5f, soundHandle.getPosition().y);
     
     //Create text input
     sf::Text timeInputText("", font, 40);
     timeInputText.setFillColor(sf::Color::Black);
+    timeInputText.setString(userSettings.getTime());
     timeInputText.setPosition(windowSize.x * 0.80f, windowSize.y * 0.366f);
 
     sf::Text dimensionInputText("", font, 40);
     dimensionInputText.setFillColor(sf::Color::Black);
+    dimensionInputText.setString(userSettings.getDimensions());
     dimensionInputText.setPosition(windowSize.x * 0.225f, windowSize.y * 0.222f);
     
     sf::Text limitInputText("", font, 40);
     limitInputText.setFillColor(sf::Color::Black);
+    limitInputText.setString(userSettings.getWordLimit());
     limitInputText.setPosition(windowSize.x * 0.215, windowSize.y * 0.6672f);
 
     sf::Text customInputText("", font, 40);
@@ -260,15 +264,15 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     customCursor.setSize(sf::Vector2f(2.0f, 40.0f));
     customCursor.setFillColor(sf::Color::Black);
 
-    string timeInputString;
-    string dimensionInputString;
-    string limitInputString;
-    string customInputString;
+    string timeInputString = userSettings.getTime();
+    string dimensionInputString = userSettings.getDimensions();
+    string limitInputString = userSettings.getWordLimit();
+    string customInputString = "";
 
-    bool showTimeCursor = true;
-    bool showDimensionCursor = true;
-    bool showLimitCursor = true;
-    bool showCustomCursor = true;
+    bool showTimeCursor = false;
+    bool showDimensionCursor = false;
+    bool showLimitCursor = false;
+    bool showCustomCursor = false;
 
     sf::Clock timeCursorTimer;
     const sf::Time timeCursorInterval = sf::seconds(0.5f);
@@ -414,6 +418,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                 }
                 // Calculate the new slider value based on the mouse position
                 sliderValue = static_cast<int>((mouseX - sliderMin) / (sliderMax - sliderMin) * 100.0f);
+                userSettings.setSoundPercent(sliderValue);
                 // Move the slider handle based on the new value
                 soundHandle.setPosition(mouseX - handleWidth * 0.5f, soundHandle.getPosition().y);
                 // Update the value text
@@ -423,66 +428,90 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
             }
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
             if (timerBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if(event.type == sf::Event::MouseButtonPressed) {
+                    showTimeCursor = true;
+                    showDimensionCursor = false;
+                    showLimitCursor = false;
+                    showCustomCursor = false;
+                }
                 if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
                         timeInputString += static_cast<char>(event.text.unicode);
                         timeInputText.setString(timeInputString);
+                        userSettings.setTime(timeInputString);
                     }
                     else if (event.text.unicode == 8 && !timeInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
                         timeInputString.pop_back();
                         timeInputText.setString(timeInputString);
-                    }
-                    else if (event.text.unicode == 13 && !timeInputString.empty()) {// Check if the entered character is the enter key
-                        // Save the input when Enter key is pressed
-                        cout << "Input: " << timeInputString << endl;
+                        userSettings.setTime(timeInputString);
                     }
                 }
             }
             else if (dimensionBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if(event.type == sf::Event::MouseButtonPressed) {
+                    showTimeCursor = false;
+                    showDimensionCursor = true;
+                    showLimitCursor = false;
+                    showCustomCursor = false;
+                }
                 if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
                         dimensionInputString += static_cast<char>(event.text.unicode);
                         dimensionInputText.setString(dimensionInputString);
+                        userSettings.setDimensions(dimensionInputString);
                     }
                     else if (event.text.unicode == 8 && !dimensionInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
                         dimensionInputString.pop_back();
                         dimensionInputText.setString(dimensionInputString);
-                    }
-                    else if (event.text.unicode == 13 && !dimensionInputString.empty()) {// Check if the entered character is the enter key
-                        // Save the input when Enter key is pressed
-                        cout << "Input: " << dimensionInputString << endl;
+                        userSettings.setDimensions(dimensionInputString);
                     }
                 }
             }
             else if (wordLimitBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if(event.type == sf::Event::MouseButtonPressed) {
+                    showTimeCursor = false;
+                    showDimensionCursor = false;
+                    showLimitCursor = true;
+                    showCustomCursor = false;
+                }
                 if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
                         limitInputString += static_cast<char>(event.text.unicode);
                         limitInputText.setString(limitInputString);
+                        userSettings.setWordLimit(limitInputString);
                     }
                     else if (event.text.unicode == 8 && !limitInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
                         limitInputString.pop_back();
                         limitInputText.setString(limitInputString);
-                    }
-                    else if (event.text.unicode == 13 && !limitInputString.empty()) {// Check if the entered character is the enter key
-                        // Save the input when Enter key is pressed
-                        cout << "Input: " << limitInputString << endl;
+                        userSettings.setWordLimit(limitInputString);
                     }
                 }
             }
             else if (customBox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                if(event.type == sf::Event::MouseButtonPressed) {
+                    showTimeCursor = false;
+                    showDimensionCursor = false;
+                    showLimitCursor = false;
+                    showCustomCursor = true;
+                }
                 if (event.type == sf::Event::TextEntered) {
-                    if (event.text.unicode >= 48 && event.text.unicode <= 57) {// Check if the entered character is a number
+                    if ((event.text.unicode >= 65 && event.text.unicode <= 90) || (event.text.unicode >= 97 && event.text.unicode <= 122)) {// Check if the entered character is a letter
                         customInputString += static_cast<char>(event.text.unicode);
                         customInputText.setString(customInputString);
                     }
-                    else if (event.text.unicode == 8 && !customInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
+                    if (event.text.unicode == 8 && !customInputText.getString().isEmpty()) {// Check if the entered character is the backspace key
                         customInputString.pop_back();
                         customInputText.setString(customInputString);
                     }
-                    else if (event.text.unicode == 13 && !customInputString.empty()) {// Check if the entered character is the enter key
-                        // Save the input when Enter key is pressed
-                        cout << "Input: " << customInputString << endl;
+                    if( event.text.unicode ==  10) {
+                        cout<<"Enter"<<endl;
+                        userSettings.addToCustomWordList(customInputString);
+                        // cout<<userSettings.getCustomWordList(0)<<endl;
+                        customInputString = "";
+                    }
+                    if(customInputString=="clear") {
+                        userSettings.clearList();
+                        customInputString = "";
                     }
                 }
             }
@@ -533,8 +562,9 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
         // Update cursor position
         timeCursor.setPosition(timerBox.getPosition().x + timeInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
-        dimensionCursor.setPosition(dimensionBox.getPosition().x + dimensionInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
-        limitCursor.setPosition(wordLimitBox.getPosition().x + limitInputText.getLocalBounds().width + 2, timerBox.getPosition().y + 3);
+        dimensionCursor.setPosition(dimensionBox.getPosition().x + dimensionInputText.getLocalBounds().width + 2, dimensionBox.getPosition().y + 3);
+        limitCursor.setPosition(wordLimitBox.getPosition().x + limitInputText.getLocalBounds().width + 2, wordLimitBox.getPosition().y + 3);
+        customCursor.setPosition(customBox.getPosition().x + customInputText.getLocalBounds().width + 2, customBox.getPosition().y + 3);
 
         window.draw(timerBox);
         window.draw(timeInputText);
@@ -547,15 +577,15 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
         window.draw(customBox);
         window.draw(customInputText);
-        
+
         // Draw cursor if it's visible
-        if (showTimeCursor)
+        if (showTimeCursor && !showLimitCursor && !showDimensionCursor && !showCustomCursor)
             window.draw(timeCursor);
-        if (showLimitCursor)
+        if (!showTimeCursor && showLimitCursor && !showDimensionCursor && !showCustomCursor)
             window.draw(limitCursor);
-        if (showLimitCursor)
+        if (!showTimeCursor && !showLimitCursor && showDimensionCursor && !showCustomCursor)
             window.draw(dimensionCursor);
-        if (showCustomCursor)
+        if (!showTimeCursor && !showLimitCursor && !showDimensionCursor && showCustomCursor)
             window.draw(customCursor);
         
         // Display the window
