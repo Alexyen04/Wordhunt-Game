@@ -1,34 +1,29 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <sstream>
+
 #include <SFML/Graphics.hpp>
-#include <random>
 
-class Piece
-{
-public:
-    Piece(float x, float y, float size, char letter);
+class Piece {
+    public: 
+        Piece(float x, float y, float width, float height, 
+        sf::Font* font, std::string text, 
+        sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor) ;
 
-    void render(sf::RenderTarget& target) const;
-    sf::FloatRect getGlobalBounds() const;
-    void setRandomLetter();
-    sf::Text getCharacterText() const;
-    char getCharacter() const;
-    void setLetter(char newLetter);
-    sf::Vector2f getPosition() const;
-    sf::Vector2f getSize() const;
+        ~Piece() ;        
+    private:
+        sf::RectangleShape shape ;
+        sf::Font* font ;
+        sf::Text text ;
+        char c; 
 
-private:
-    void updateText();
-
-private:
-    sf::Vector2f position;
-    float size;
-    char letter;
-    bool isHovered;
-    sf::RectangleShape shape;
-    sf::Text text;
-    sf::Font font;
+        sf::Color idleColor ;
+        sf::Color hoverColor ;
+        sf::Color activateColor ;
 };
 
-#endif // PIECE_H
+#endif  
