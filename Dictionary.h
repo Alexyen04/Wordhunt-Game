@@ -5,7 +5,7 @@
 struct Dictionary {
   Dictionary() {
     // load _words, here's one possible implementation:
-    std::ifstream input("dictionary.txt");
+    std::ifstream input("/usr/share/dict/words");
     for (std::string line; getline(input, line);) {
       _words.insert(line);
     }
