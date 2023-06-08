@@ -1,3 +1,6 @@
+#ifndef TEXT_H
+#define TEXT_H
+
 #include <SFML/Graphics.hpp>
 
 class Text {
@@ -7,66 +10,25 @@ private:
 public:
     Text(sf::Font& font, const std::string& string, unsigned int characterSize, const sf::Color& fillColor,
          const sf::Color& outlineColor = sf::Color::Transparent, float outlineThickness = 0.0f,
-         const sf::Vector2f& position = sf::Vector2f(0.0f, 0.0f))
-    {
-        text.setFont(font);
-        text.setString(string);
-        text.setCharacterSize(characterSize);
-        text.setFillColor(fillColor);
-        text.setOutlineColor(outlineColor);
-        text.setOutlineThickness(outlineThickness);
-        text.setPosition(position);
-    }
+         const sf::Vector2f& position = sf::Vector2f(0.0f, 0.0f));
 
-    void setPosition(const sf::Vector2f& position) {
-        text.setPosition(position);
-    }
+    void setPosition(const sf::Vector2f& position);
+    void setString(const std::string& string);
+    void setCharacterSize(unsigned int characterSize);
+    void setFillColor(const sf::Color& fillColor);
+    void setOutlineColor(const sf::Color& outlineColor);
+    void setOutlineThickness(float outlineThickness);
 
-    void setString(const std::string& string) {
-        text.setString(string);
-    }
+    sf::Vector2f getPosition() const;
+    std::string getString() const;
+    unsigned int getCharacterSize() const;
+    sf::Color getFillColor() const;
+    sf::Color getOutlineColor() const;
+    float getOutlineThickness() const;
+    sf::FloatRect getLocalBounds() const; // Added getLocalBounds function
 
-    void setCharacterSize(unsigned int characterSize) {
-        text.setCharacterSize(characterSize);
-    }
-
-    void setFillColor(const sf::Color& fillColor) {
-        text.setFillColor(fillColor);
-    }
-
-    void setOutlineColor(const sf::Color& outlineColor) {
-        text.setOutlineColor(outlineColor);
-    }
-
-    void setOutlineThickness(float outlineThickness) {
-        text.setOutlineThickness(outlineThickness);
-    }
-
-    sf::Vector2f getPosition() const {
-        return text.getPosition();
-    }
-
-    std::string getString() const {
-        return text.getString();
-    }
-
-    unsigned int getCharacterSize() const {
-        return text.getCharacterSize();
-    }
-
-    sf::Color getFillColor() const {
-        return text.getFillColor();
-    }
-
-    sf::Color getOutlineColor() const {
-        return text.getOutlineColor();
-    }
-
-    float getOutlineThickness() const {
-        return text.getOutlineThickness();
-    }
-
-    void render(sf::RenderTarget& target) {
-        target.draw(text);
-    }
+    // Added getText function
+    sf::Text& getText();
 };
+
+#endif // TEXT_H

@@ -4,14 +4,19 @@
 #include <sstream>
 #include <iostream>
 #include <cctype>
+#include <fstream>
 #include <algorithm>
-#include "Button.h"
+#include "ButtonCustom.h"
+#include "ButtonRenderer.h"
+#include "Dictionary.h"
 #include "Board.h"
-#include "piece.h"
+#include "Piece.h"
 #include "Text.h"
-#include "WordPointCalc.h"
+#include "TextRenderer.h"
 #include "Settings.h"
-#include "WordPointCalc.h"
+#include "WordScorer.h"
+#include "DefaultWordScorer.h"
+#include "WordScoreCalculator.h"
 
 using namespace std;
 
@@ -30,10 +35,10 @@ sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
 }
 
 // Function to render the main menu
-void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
+void mainMenu(sf::RenderWindow& window, Settings& userSettings) {
     // Clear the window
     window.clear(sf::Color::White);
-    
+
     // Load the gif texture
     sf::Texture gifTexture;
     if (!gifTexture.loadFromFile("main_menu.gif")) {
@@ -61,31 +66,41 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
     sf::Vector2f settingsButtonPosition(windowWidth * 0.3667f, windowHeight * 0.7f);
 
     // Create the title text
-    Text titleText(font, "Modified Word Hunt", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
-   
+    Text title(font, "Modified Word Hunt", static_cast<unsigned int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
+
+    // Create the text renderer for the title
+    TextRenderer titleRenderer(title);
+
     // Create the buttons
-    Button playButton(
-        static_cast<int>(playButtonPosition.x),
-        static_cast<int>(playButtonPosition.y),
-        static_cast<int>(windowWidth * 0.15f),
-        static_cast<int>(windowHeight * 0.0667f),
+    ButtonCustom playButton(
+        playButtonPosition.x,
+        playButtonPosition.y,
+        windowWidth * 0.15f,
+        windowHeight * 0.0667f,
         font,
         "Play",
-        sf::Color::Black, 
+        sf::Color::Black,
         sf::Color::White,
         sf::Color(70, 70, 70, 200)
     );
-    Button settingsButton(
-        static_cast<int>(settingsButtonPosition.x),
-        static_cast<int>(settingsButtonPosition.y),
-        static_cast<int>(windowWidth * 0.27f), 
-        static_cast<int>(windowHeight * 0.0667f),
+    ButtonCustom settingsButton(
+        settingsButtonPosition.x,
+        settingsButtonPosition.y,
+        windowWidth * 0.27f,
+        windowHeight * 0.0667f,
         font,
         "Settings",
-        sf::Color::Black, 
-        sf::Color::White, 
+        sf::Color::Black,
+        sf::Color::White,
         sf::Color(70, 70, 70, 200)
     );
+
+    // Create the button renderer for the play button
+    ButtonRenderer playButtonRenderer(playButton);
+
+    // Create the button renderer for the settings button
+    ButtonRenderer settingsButtonRenderer(settingsButton);
+
     // Game loop
     while (window.isOpen()) {
         // Handle events
@@ -104,7 +119,7 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
                     if (playButton.isPressed()) {
                         // Do something when "Play" button is clicked
                         gameScreen(window, userSettings);
-                        break ;
+                        break;
                     }
                     // Check if settings button is clicked
                     if (settingsButton.isPressed()) {
@@ -116,14 +131,19 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
 
         window.draw(gifSprite);
 
-        titleText.render(window);
+        // Render the title text
+        titleRenderer.render(window);
 
-        playButton.render(&window);
-        settingsButton.render(&window);
-        
+        // Render the play button
+        playButtonRenderer.render(window);
+
+        // Render the settings button
+        settingsButtonRenderer.render(window);
+
         window.display();
     }
 }
+
 
 void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     window.clear(sf::Color::White);
@@ -151,18 +171,28 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.675f, windowSize.y * 0.817f);
 
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
-
     Text dimensionText(font, "Dimensions", 40, sf::Color::White, sf::Color::Black, 6.0f, dimensionPosition);
     Text soundEffectText(font, "Sound Effects", 40, sf::Color::White, sf::Color::Black, 6.0f, soundEffectPosition);
     Text soundText(font, "Sound %", 40, sf::Color::White, sf::Color::Black, 6.0f, soundDimension);
     Text wordText(font, "Word Limit", 40, sf::Color::White, sf::Color::Black, 6.0f, wordDimension);
     Text scoreMultiplierText(font, "Score Multiplier", 40, sf::Color::White, sf::Color::Black, 6.0f, scoreMultiplierPosition);
-
     Text hintText(font, "Hints", 40, sf::Color::White, sf::Color::Black, 6.0f, hintPosition);
     Text timerText(font, "Timer Amount", 40, sf::Color::White, sf::Color::Black, 6.0f, timerPosition);
     Text powerupText(font, "Powerups", 40, sf::Color::White, sf::Color::Black, 6.0f, powerupPosition);
-    Text customText(font, "Custom Word List", 40, sf::Color::White, sf::Color::Black, 6.0f, wordListPosition);
+    Text wordListText(font, "Word List", 40, sf::Color::White, sf::Color::Black, 6.0f, wordListPosition);
     Text backText(font, "Back", 40, sf::Color::White, sf::Color::Black, 6.0f, backPosition);
+
+    TextRenderer titleTextRenderer(titleText);
+    TextRenderer dimensionTextRenderer(dimensionText);
+    TextRenderer soundEffectTextRenderer(soundEffectText);
+    TextRenderer soundTextRenderer(soundText);
+    TextRenderer wordTextRenderer(wordText);
+    TextRenderer scoreMultiplierTextRenderer(scoreMultiplierText);
+    TextRenderer hintTextRenderer(hintText);
+    TextRenderer timerTextRenderer(timerText);
+    TextRenderer powerupTextRenderer(powerupText);
+    TextRenderer wordListTextRenderer(wordListText);
+    TextRenderer backTextRenderer(backText);
 
     // Initialize button labels based on user settings
     sf::Color soundButtonColor = userSettings.areEffectsEnabled() ? sf::Color::Green : sf::Color::Red;
@@ -177,11 +207,17 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
-    Button hintButton(1140, 300, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
-    Button soundeffectButton(400, 523, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
-    Button scoreMultiplierButton(430, 1200, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
-    Button powerupButton(1140, 750, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
-    Button backButton(1140, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
+    ButtonCustom hintButton(1140, 300, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
+    ButtonCustom soundeffectButton(400, 523, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
+    ButtonCustom scoreMultiplierButton(430, 1200, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
+    ButtonCustom powerupButton(1140, 750, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
+    ButtonCustom backButton(1140, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
+
+    ButtonRenderer hintButtonRenderer(hintButton);
+    ButtonRenderer soundeffectButtonRenderer(soundeffectButton);
+    ButtonRenderer scoreMultiplierButtonRenderer(scoreMultiplierButton);
+    ButtonRenderer powerupButtonRenderer(powerupButton);
+    ButtonRenderer backButtonRenderer(backButton);
 
     //Create slider
     sf::RectangleShape soundSlider(sf::Vector2f(200, 20));
@@ -524,28 +560,27 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
         window.clear();
 
-        titleText.render(window) ;
-        dimensionText.render(window) ;
-        soundEffectText.render(window) ;
-        soundText.render(window) ;
-        wordText.render(window) ;
-        scoreMultiplierText.render(window) ;
-        
-        hintText.render(window) ;
-        timerText.render(window) ;
-        powerupText.render(window) ;
-        customText.render(window) ;
-        backText.render(window) ;
-
-        soundeffectButton.render(&window);
-        scoreMultiplierButton.render(&window);
-        hintButton.render(&window);
-        powerupButton.render(&window);
-        backButton.render(&window);
+        soundeffectButtonRenderer.render(window);
+        scoreMultiplierButtonRenderer.render(window);
+        hintButtonRenderer.render(window);
+        powerupButtonRenderer.render(window);
+        backButtonRenderer.render(window);
 
         window.draw(soundSlider);
         window.draw(soundHandle);
         window.draw(valueText);
+
+        titleTextRenderer.render(window);
+        dimensionTextRenderer.render(window);
+        soundEffectTextRenderer.render(window);
+        soundTextRenderer.render(window);
+        wordTextRenderer.render(window);
+        scoreMultiplierTextRenderer.render(window);
+        hintTextRenderer.render(window);
+        timerTextRenderer.render(window);
+        powerupTextRenderer.render(window);
+        wordListTextRenderer.render(window);
+        backTextRenderer.render(window);
         
         // Cursor blinking
         if (timeCursorTimer.getElapsedTime() >= timeCursorInterval){
@@ -661,7 +696,9 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
         return;
     }
 
-    vector<string> wordVector = filterValidWords(board.getWordList(), "dictionary.txt") ;
+    Dictionary dictionary("Dictionary.txt");
+    std::vector<std::string> wordVector = dictionary.filterValidWords(board.getWordList());
+
 
     sf::RectangleShape textBox(sf::Vector2f(400.f, 920.f));
     textBox.setFillColor(sf::Color::White);
@@ -669,11 +706,8 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
     textBox.setOutlineColor(sf::Color::Black);
     textBox.setPosition(200.f, 325.f);
 
-    sf::Text text;
-    text.setFont(font);
-    text.setCharacterSize(60);
-    text.setFillColor(sf::Color::Black);
-    text.setPosition(220.f, 335.f);
+    Text text(font, "", 60, sf::Color::Black, sf::Color::Transparent, 0.0f, sf::Vector2f(220.f, 335.f));
+    TextRenderer textRenderer(text);
 
     sf::RectangleShape slider(sf::Vector2f(10.f, 10.f));
     slider.setFillColor(sf::Color::Black);
@@ -686,7 +720,11 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
     scoreText.setFillColor(sf::Color::Black);
     scoreText.setPosition(855.f, 470.f);
 
-    int score = calculateTotalScore(wordVector);
+    WordScorer* defaultWordScorer = new DefaultWordScorer();  // Create an instance of DefaultWordScorer
+    WordScoreCalculator wordScoreCalculator(*defaultWordScorer);  // Pass the DefaultWordScorer instance to WordScoreCalculator constructor
+    int score = wordScoreCalculator.calculateTotalScore(wordVector);
+
+
     string scoreString = to_string(score);
     scoreText.setString(scoreString);
 
@@ -727,6 +765,7 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
 
     // Create the title text
     Text titleText(font, "Score Screen", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
+    TextRenderer titleTextRenderer(titleText);
 
     // Game loop
     while (window.isOpen()) {
@@ -798,68 +837,15 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
         slider.setSize(sf::Vector2f(20.f, fixedSliderHeight));
         slider.setPosition(textBox.getPosition().x + textBox.getSize().x - slider.getSize().x - 5.f, textBox.getPosition().y + sliderPosition);
 
-        // Render the score screen
         window.clear(sf::Color::White);
-        titleText.render(window);
+        titleTextRenderer.render(window);
         window.draw(textBox);
-        window.draw(text);
+        textRenderer.render(window);
         window.draw(slider);
         window.draw(scoreBox);
         window.draw(scoreText);
         window.display();
     }
-}
-
-vector<string> filterValidWords(const vector<string>& words, const string& validWordsFile) {
-    set<string> validWords;  // Use a set to store the unique valid words
-
-    ifstream file(validWordsFile);
-    if (!file.is_open()) {
-        cout << "Failed to open valid words file." << endl;
-        return vector<string>();  // Return an empty vector
-    }
-
-    string line;
-    while (getline(file, line)) {
-        // Convert the line to lowercase for case-insensitive comparison
-        transform(line.begin(), line.end(), line.begin(), ::tolower);
-
-        // Remove any trailing whitespace
-        line.erase(find_if(line.rbegin(), line.rend(), [](unsigned char ch) {
-            return !isspace(ch);
-        }).base(), line.end());
-
-        validWords.insert(line);  // Insert the word into the set
-    }
-
-    file.close();
-
-    // Filter the input words based on the valid words set
-    vector<string> filteredWords;
-    for (const string& word : words) {
-        string lowercaseWord = word;
-        transform(lowercaseWord.begin(), lowercaseWord.end(), lowercaseWord.begin(), ::tolower);
-
-        if (validWords.find(lowercaseWord) != validWords.end()) {
-            filteredWords.push_back(word);
-        }
-    }
-
-    // Remove duplicates from the filtered words vector
-    filteredWords.erase(unique(filteredWords.begin(), filteredWords.end()), filteredWords.end());
-
-    return filteredWords;
-}
-
-int calculateTotalScore(const vector<string>& words) {
-    int totalScore = 0;
-
-    for (const string& word : words) {
-        int wordScore = calculatePoints(word);
-        totalScore += wordScore;
-    }
-
-    return totalScore;
 }
 
 int main() {

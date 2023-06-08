@@ -2,7 +2,7 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
-#include "piece.h"
+#include "Piece.h"
 #include <vector>
 #include <iostream>
 #include <unordered_map>

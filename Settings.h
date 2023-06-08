@@ -1,117 +1,46 @@
-#include <vector>
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
 #include <string>
+#include "ISettings.h"
+#include "CustomWordList.h"
 
-class Settings {
+class Settings : public ISettings {
 public:
-    Settings()
-        : soundEnabled(false),
-          effectsEnabled(false),
-          scoreMultiplierEnabled(false),
-          hintsEnabled(false),
-          powerupsEnabled(false),
-          dimensions("4"),
-          soundPercent(50),
-          wordLimit("17"),
-          time("80"),
-          customWordList(new std::vector<std::string>()) // Initialize as a pointer to an empty vector
-    {
-    }
+    Settings();
 
-    ~Settings() {
-        delete customWordList; // Deallocate memory for the vector
-    }
+    // Destructor doesn't need to deallocate memory for the vector anymore
 
-    bool isSoundEnabled() const {
-        return soundEnabled;
-    }
+    // Implement the methods from the ISettings interface
+    bool isSoundEnabled() const override;
+    void setSoundEnabled(bool enabled) override;
 
-    void setSoundEnabled(bool enabled) {
-        soundEnabled = enabled;
-    }
+    bool areEffectsEnabled() const override;
+    void setEffectsEnabled(bool enabled) override;
 
-    bool areEffectsEnabled() const {
-        return effectsEnabled;
-    }
+    bool isScoreMultiplierEnabled() const override;
+    void setScoreMultiplierEnabled(bool enabled) override;
 
-    void setEffectsEnabled(bool enabled) {
-        effectsEnabled = enabled;
-    }
+    bool areHintsEnabled() const override;
+    void setHintsEnabled(bool enabled) override;
 
-    bool isScoreMultiplierEnabled() const {
-        return scoreMultiplierEnabled;
-    }
+    bool arePowerupsEnabled() const override;
+    void setPowerupsEnabled(bool enabled) override;
 
-    void setScoreMultiplierEnabled(bool enabled) {
-        scoreMultiplierEnabled = enabled;
-    }
+    std::string getDimensions() const override;
+    void setDimensions(const std::string& dimensions) override;
 
-    bool areHintsEnabled() const {
-        return hintsEnabled;
-    }
+    int getSoundPercent() const override;
+    void setSoundPercent(int percent) override;
 
-    void setHintsEnabled(bool enabled) {
-        hintsEnabled = enabled;
-    }
+    std::string getWordLimit() const override;
+    void setWordLimit(const std::string& limit) override;
 
-    bool arePowerupsEnabled() const {
-        return powerupsEnabled;
-    }
+    std::string getTime() const override;
+    void setTime(const std::string& time) override;
 
-    void setPowerupsEnabled(bool enabled) {
-        powerupsEnabled = enabled;
-    }
-
-    string getDimensions() const {
-        return dimensions;
-    }
-
-    void setDimensions(string dimensions) {
-        this->dimensions = dimensions;
-    }
-
-    int getSoundPercent() const {
-        return soundPercent;
-    }
-
-    void setSoundPercent(int percent) {
-        soundPercent = percent;
-    }
-
-    string getWordLimit() const {
-        return wordLimit;
-    }
-
-    void setWordLimit(string limit) {
-        wordLimit = limit;
-    }
-
-    string getTime() const {
-        return time;
-    }
-
-    void setTime(string time) {
-        this->time = time;
-    }
-
-    void clearList() {
-        customWordList->clear();
-        std::cout<<"cleared"<<std::endl;
-    }
-
-    std::string getCustomWordList(int index) const {
-        if (index >= 0 && index < customWordList->size()) {
-            return (*customWordList)[index];
-        }
-        else {
-            // Handle the case when the index is out of bounds
-            // You can throw an exception or return a default value as per your requirements
-            throw std::out_of_range("Index out of bounds");
-        }
-    }
-
-    void addToCustomWordList(const std::string& word) {
-        customWordList->push_back(word);
-    }
+    void addToCustomWordList(const std::string& word);
+    void clearList();
 
 private:
     bool soundEnabled;
@@ -119,9 +48,11 @@ private:
     bool scoreMultiplierEnabled;
     bool hintsEnabled;
     bool powerupsEnabled;
-    string dimensions;
+    std::string dimensions;
     int soundPercent;
-    string wordLimit;
-    string time;
-    std::vector<std::string>* customWordList; // Pointer to vector
+    std::string wordLimit;
+    std::string time;
+    CustomWordList customWordList;
 };
+
+#endif /* SETTINGS_H */

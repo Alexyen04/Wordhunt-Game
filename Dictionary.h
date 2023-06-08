@@ -1,16 +1,24 @@
-#include <iostream>
-#include <fstream>
-#include <set>
+#ifndef DICTIONARY_H
+#define DICTIONARY_H
 
-struct Dictionary {
-  Dictionary() {
-    // load _words, here's one possible implementation:
-    std::ifstream input("dictionary.txt");
-    for (std::string line; getline(input, line);) {
-      _words.insert(line);
-    }
-  }
-  bool contains(std::string const& word) const { return _words.count(word); }
+#include <string>
+#include <unordered_set>
+#include <vector>
 
-  std::set<std::string> _words;
+class Dictionary {
+private:
+    std::unordered_set<std::string> validWords;
+
+public:
+    Dictionary(const std::string& validWordsFile);
+
+    bool contains(const std::string& word) const;
+
+    std::vector<std::string> filterValidWords(const std::vector<std::string>& words) const;
+
+private:
+    void loadValidWords(const std::string& validWordsFile);
+    std::string transformWord(const std::string& word) const;
 };
+
+#endif
