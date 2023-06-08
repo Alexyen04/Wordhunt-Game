@@ -18,6 +18,7 @@ add_executable(WordHunt
     FileLoader.cpp
     TextRenderer.cpp
     Text.cpp
+    Slider.cpp
 )
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
