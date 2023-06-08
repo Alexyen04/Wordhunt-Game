@@ -649,8 +649,9 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
 
     // Game loop
     sf::Clock timerClock;
-    sf::Time timeLimit = sf::seconds(20);  // Adjust the time limit as desired
+    sf::Time timeLimit = sf::seconds(std::stoi(userSettings.getTime())); // Convert string to int
     bool isTimeUp = false;
+
     while (window.isOpen() && !isTimeUp)
     {
         // Handle events

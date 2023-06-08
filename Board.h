@@ -2,15 +2,13 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
-#include "Piece.h"
-#include <vector>
 #include <iostream>
 #include <unordered_map>
 #include <random>
+#include <vector>
+#include "Piece.h"
 
-
-class Board
-{
+class Board {
 public:
     Board(unsigned int dimensions);
     void initializeRandomLetters();
@@ -18,7 +16,7 @@ public:
     void handleEvent(const sf::Event& event);
     void render(sf::RenderTarget& target) const;
     void printWord();
-    std::vector <std::string> getWordList() { return wordList ; }
+    std::vector<std::string> getWordList() { return wordList; }
 
 private:
     unsigned int dimensions;
