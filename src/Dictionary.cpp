@@ -1,5 +1,5 @@
-#include "Dictionary.h"
-#include "FileLoader.h"
+#include "../include/Dictionary.h"
+#include "../include/FileLoader.h"
 #include <iostream>
 #include <algorithm>
 #include <cctype>

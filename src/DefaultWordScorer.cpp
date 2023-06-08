@@ -1,4 +1,4 @@
-#include "DefaultWordScorer.h"
+#include "../include/DefaultWordScorer.h"
 
 int DefaultWordScorer::calculatePoints(const std::string& word) const {
     int wordLength = word.length();

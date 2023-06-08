@@ -1,4 +1,4 @@
-#include "CustomWordList.h"
+#include "../include/CustomWordList.h"
 
 void CustomWordList::clearList() {
     customWords.clear();

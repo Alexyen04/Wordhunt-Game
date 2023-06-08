@@ -1,4 +1,4 @@
-#include "WordValidator.h"
+#include "../include/WordValidator.h"
 #include <algorithm>
 
 std::vector<std::string> WordValidator::filterValidWords(const std::vector<std::string>& words, const std::vector<std::string>& validWords) {

@@ -1,4 +1,4 @@
-#include "Slider.h"
+#include "../include/Slider.h"
 
 Slider::Slider(float width, float height, float xPos, float yPos)
     : sliderBar(sf::Vector2f(width, height)),

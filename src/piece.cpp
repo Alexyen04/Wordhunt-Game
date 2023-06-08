@@ -1,4 +1,4 @@
-#include "Piece.h"
+#include "../include/piece.h"
 
 Piece::Piece(float x, float y, float size, char letter)
     : position(sf::Vector2f(x, y)), size(size), letter(letter), isHovered(false)

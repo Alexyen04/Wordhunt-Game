@@ -5,20 +5,20 @@ find_package(SFML 2.5.1 REQUIRED COMPONENTS graphics)
 
 add_executable(WordHunt 
     main.cpp 
-    ButtonCustom.cpp 
-    ButtonRenderer.cpp
-    Board.cpp
-    Piece.cpp
-    Dictionary.cpp
-    Settings.cpp
-    WordValidator.cpp
-    WordScoreCalculator.cpp
-    DefaultWordScorer.cpp
-    CustomWordList.cpp
-    FileLoader.cpp
-    TextRenderer.cpp
-    Text.cpp
-    Slider.cpp
+    src/ButtonCustom.cpp 
+    src/ButtonRenderer.cpp
+    src/Board.cpp
+    src/Piece.cpp
+    src/Dictionary.cpp
+    src/Settings.cpp
+    src/WordValidator.cpp
+    src/WordScoreCalculator.cpp
+    src/DefaultWordScorer.cpp
+    src/CustomWordList.cpp
+    src/FileLoader.cpp
+    src/TextRenderer.cpp
+    src/Text.cpp
+    src/Slider.cpp
 )
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)

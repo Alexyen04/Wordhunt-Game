@@ -1,5 +1,5 @@
-#ifndef BUTTON_RENDERER_H
-#define BUTTON_RENDERER_H
+#ifndef BUTTONRENDERER_H
+#define BUTTONRENDERER_H
 
 #include <SFML/Graphics.hpp>
 

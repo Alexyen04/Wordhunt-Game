@@ -1,4 +1,4 @@
-#include "WordScoreCalculator.h"
+#include "../include/WordScoreCalculator.h"
 
 WordScoreCalculator::WordScoreCalculator(const WordScorer& scorer) : scorer(scorer) {}
 

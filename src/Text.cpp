@@ -1,4 +1,4 @@
-#include "Text.h"
+#include "../include/Text.h"
 
 Text::Text(sf::Font& font, const std::string& string, unsigned int characterSize, const sf::Color& fillColor,
            const sf::Color& outlineColor, float outlineThickness, const sf::Vector2f& position)

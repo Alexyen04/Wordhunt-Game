@@ -6,17 +6,17 @@
 #include <cctype>
 #include <fstream>
 #include <algorithm>
-#include "ButtonCustom.h"
-#include "ButtonRenderer.h"
-#include "Dictionary.h"
-#include "Board.h"
-#include "Piece.h"
-#include "Text.h"
-#include "TextRenderer.h"
-#include "Settings.h"
-#include "WordScorer.h"
-#include "DefaultWordScorer.h"
-#include "WordScoreCalculator.h"
+#include "include/ButtonCustom.h"
+#include "include/ButtonRenderer.h"
+#include "include/Dictionary.h"
+#include "include/Board.h"
+#include "include/piece.h"
+#include "include/Text.h"
+#include "include/TextRenderer.h"
+#include "include/Settings.h"
+#include "include/WordScorer.h"
+#include "include/DefaultWordScorer.h"
+#include "include/WordScoreCalculator.h"
 
 using namespace std;
 

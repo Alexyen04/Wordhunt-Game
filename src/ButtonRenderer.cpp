@@ -1,5 +1,5 @@
-#include "ButtonRenderer.h"
-#include "ButtonCustom.h"
+#include "../include/ButtonRenderer.h"
+#include "../include/ButtonCustom.h"
 
 ButtonRenderer::ButtonRenderer(ButtonCustom& button) : m_button(button) {}
 

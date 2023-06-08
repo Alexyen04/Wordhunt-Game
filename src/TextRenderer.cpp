@@ -1,4 +1,4 @@
-#include "TextRenderer.h"
+#include "../include/TextRenderer.h"
 
 TextRenderer::TextRenderer(Text& text) : text(text) {}
 

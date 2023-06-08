@@ -1,4 +1,4 @@
-#include "Settings.h"
+#include "../include/Settings.h"
 
 Settings::Settings()
     : soundEnabled(false),

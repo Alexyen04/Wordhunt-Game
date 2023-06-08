@@ -1,4 +1,4 @@
-#include "ButtonCustom.h"
+#include "../include/ButtonCustom.h"
 
 ButtonCustom::ButtonCustom(float x, float y, float width, float height, const sf::Font& font, const std::string& buttonText,
                            const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor)
@@ -166,3 +166,4 @@ void ButtonCustom::update(const sf::Vector2f& mousePos)
             break;
     }
 }
+
