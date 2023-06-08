@@ -1,3 +1,5 @@
+#ifndef WORDPOINTCALC_H
+#define WORDPOINTCALC_H
 #include <iostream>
 #include "Dictionary.h"
 
@@ -21,21 +23,4 @@ int calculatePoints(string word) {
     // Return 0 for words with length less than 3
     return 0;
 }
-
-void promptAndCalculatePoints() {
-    Dictionary dictionary;
-    std::string word;
-
-    std::cout << "Enter a word: ";
-    std::cin >> word;
-
-    std::transform(word.begin(), word.end(), word.begin(),
-        [](unsigned char c) { return std::tolower(c); });
-
-    if (dictionary.contains(word)) {
-        int points = calculatePoints(word);
-        std::cout << "Points: " << points << std::endl;
-    } else {
-        std::cout << "Word not found in the dictionary." << std::endl;
-    }
-}
+#endif

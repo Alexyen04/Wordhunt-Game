@@ -1,36 +1,36 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-#include <vector>
-#include "piece.h"
-
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Window.hpp>
-
-class Board {
-    public:
-        Board (float x, float y, float width, float height, 
-        sf::Font* font, std::string text) ;
-
-        ~Board();
-
-        void fillBoard(int, int);
-        
-        void render(sf::RenderTarget* target);
+#include "piece.h"
+#include <vector>
+#include <iostream>
+#include <unordered_map>
+#include <random>
 
 
-    private:
-        int score;
-        std::vector <Piece> boardChars;
-        sf::RectangleShape shape ;
-        sf::Font* font ;
-        sf::Text text ;
+class Board
+{
+public:
+    Board(unsigned int dimensions);
+    void initializeRandomLetters();
+    void update(const sf::Vector2f& mousePosition, bool isMousePressed);
+    void handleEvent(const sf::Event& event);
+    void render(sf::RenderTarget& target) const;
+    void printWord();
+    std::vector <std::string> getWordList() { return wordList ; }
 
+private:
+    unsigned int dimensions;
+    std::string word;
+    std::vector<std::string> wordList;
+    std::vector<Piece> pieces;
+    std::vector<bool> pieceSelected;
+    std::vector<char> characters;
+    const Piece* hoverPiece;
+    bool isMousePressed;
+    sf::RectangleShape board;
+    sf::Vector2f mousePosition;
 };
 
-#endif
+#endif // BOARD_H

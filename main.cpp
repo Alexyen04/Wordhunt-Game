@@ -4,18 +4,23 @@
 #include <sstream>
 #include <iostream>
 #include <cctype>
+#include <algorithm>
 #include "Button.h"
 #include "Board.h"
 #include "piece.h"
 #include "Text.h"
 #include "WordPointCalc.h"
 #include "Settings.h"
+#include "WordPointCalc.h"
 
 using namespace std;
 
 void settingScreen(sf::RenderWindow& window, Settings &userSettings) ;
 void mainMenu(sf::RenderWindow& window, Settings &userSettings) ;
-void gameScreen(sf::RenderWindow& window, Settings &userSettings) ;
+void gameScreen(sf::RenderWindow& window, Settings& userSettings ) ;
+void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board ) ;
+vector<string> filterValidWords(const vector<string>& words, const string& validWordsFile) ;
+int calculateTotalScore(const vector<string>& words) ;
 
 // Function to get the mouse position relative to the window
 sf::Vector2f getMousePosition(const sf::RenderWindow& window) {
@@ -99,6 +104,7 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
                     if (playButton.isPressed()) {
                         // Do something when "Play" button is clicked
                         gameScreen(window, userSettings);
+                        break ;
                     }
                     // Check if settings button is clicked
                     if (settingsButton.isPressed()) {
@@ -108,7 +114,6 @@ void mainMenu(sf::RenderWindow& window, Settings &userSettings) {
             }
         }
 
-        window.clear();
         window.draw(gifSprite);
 
         titleText.render(window);
@@ -166,10 +171,10 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Color powerupButtonColor = userSettings.arePowerupsEnabled() ? sf::Color::Green : sf::Color::Red;
 
     // Initialize button labels based on user settings
-    std::string soundButtonText = userSettings.areEffectsEnabled() ? "On" : "Off";
-    std::string scoreMultiplierButtonText = userSettings.isScoreMultiplierEnabled() ? "On" : "Off";
-    std::string hintButtonText = userSettings.areHintsEnabled() ? "On" : "Off";
-    std::string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
+    string soundButtonText = userSettings.areEffectsEnabled() ? "On" : "Off";
+    string scoreMultiplierButtonText = userSettings.isScoreMultiplierEnabled() ? "On" : "Off";
+    string hintButtonText = userSettings.areHintsEnabled() ? "On" : "Off";
+    string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
     Button hintButton(1140, 300, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
@@ -422,7 +427,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
                 // Move the slider handle based on the new value
                 soundHandle.setPosition(mouseX - handleWidth * 0.5f, soundHandle.getPosition().y);
                 // Update the value text
-                std::ostringstream oss;
+                ostringstream oss;
                 oss << sliderValue;
                 valueText.setString(oss.str());
             }
@@ -593,7 +598,60 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     }
 }
 
-void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
+void gameScreen(sf::RenderWindow& window, Settings& userSettings)
+{
+    window.clear(sf::Color::White);
+
+    // Calculate relative positions and sizes based on window size
+    float windowWidth = static_cast<float>(window.getSize().x);
+    float windowHeight = static_cast<float>(window.getSize().y);
+    sf::Vector2f titlePosition(windowWidth * 0.100f, windowHeight * 0.033f);
+
+    string boardDimensions = userSettings.getDimensions();
+    unsigned int boardDimensionInt = stoul(boardDimensions);
+    Board board(boardDimensionInt);
+    board.initializeRandomLetters();
+
+    // Game loop
+    sf::Clock timerClock;
+    sf::Time timeLimit = sf::seconds(20);  // Adjust the time limit as desired
+    bool isTimeUp = false;
+    while (window.isOpen() && !isTimeUp)
+    {
+        // Handle events
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+            bool isMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+            board.update(getMousePosition(window), isMousePressed);
+        }
+
+        // Update the timer
+        sf::Time elapsedTime = timerClock.getElapsedTime();
+        if (elapsedTime >= timeLimit)
+        {
+            isTimeUp = true;
+        }
+
+        window.clear();
+
+        board.render(window); // Implement the render function for your Board class
+
+        window.display();
+    }
+
+    // Go to the ScoreScreen or perform any other necessary actions
+    scoreScreen(window, userSettings, board);  // Call the ScoreScreen function or replace with your implementation
+}
+
+
+
+
+void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board) {
     // Clear the window
     window.clear(sf::Color::White);
 
@@ -603,16 +661,72 @@ void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
         return;
     }
 
+    vector<string> wordVector = filterValidWords(board.getWordList(), "dictionary.txt") ;
+
+    sf::RectangleShape textBox(sf::Vector2f(400.f, 920.f));
+    textBox.setFillColor(sf::Color::White);
+    textBox.setOutlineThickness(2.f);
+    textBox.setOutlineColor(sf::Color::Black);
+    textBox.setPosition(200.f, 325.f);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(60);
+    text.setFillColor(sf::Color::Black);
+    text.setPosition(220.f, 335.f);
+
+    sf::RectangleShape slider(sf::Vector2f(10.f, 10.f));
+    slider.setFillColor(sf::Color::Black);
+    slider.setOutlineThickness(1.f);
+    slider.setOutlineColor(sf::Color::Black);
+
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(93);
+    scoreText.setFillColor(sf::Color::Black);
+    scoreText.setPosition(855.f, 470.f);
+
+    int score = calculateTotalScore(wordVector);
+    string scoreString = to_string(score);
+    scoreText.setString(scoreString);
+
+    sf::FloatRect textBounds = scoreText.getLocalBounds();
+
+    float padding = 10.0f; // Set your desired padding value here
+
+    float boxWidth = textBounds.width + (2 * padding);
+    float boxHeight = textBounds.height + (2 * padding);
+
+    // Set the size and position of the scoreBox
+    sf::RectangleShape scoreBox(sf::Vector2f(boxWidth, boxHeight));
+    scoreBox.setFillColor(sf::Color::White);
+    scoreBox.setOutlineThickness(2.f);
+    scoreBox.setOutlineColor(sf::Color::Black);
+    scoreBox.setPosition(scoreText.getPosition().x - padding, scoreText.getPosition().y - padding);
+
+    // Adjust the y-coordinate of the scoreText position to center it vertically within the score box
+    float textOffsetY = (boxHeight - textBounds.height) / 2.f;
+    scoreText.setPosition(scoreBox.getPosition().x + padding, scoreBox.getPosition().y - textOffsetY);
+
+    unsigned int visibleLines = 10;
+    unsigned int scrollOffset = 0;
+
+    stringstream ss;
+    for (unsigned int i = 0; i < visibleLines && i < wordVector.size(); ++i) {
+        ss << wordVector[i] << "\n";
+    }
+    text.setString(ss.str());
+
+    bool isDraggingSlider = false;
+    sf::Vector2f sliderDragOffset;
+
     // Calculate relative positions and sizes based on window size
     float windowWidth = static_cast<float>(window.getSize().x);
     float windowHeight = static_cast<float>(window.getSize().y);
-    sf::Vector2f titlePosition(windowWidth * 0.100f, windowHeight * 0.033f);
+    sf::Vector2f titlePosition(windowWidth * 0.1f, windowHeight * 0.05f);
 
     // Create the title text
-    Text titleText(font, "Game", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
-
-    Board board(300.f, 300.f, 800.f, 800.f, &font, "Example Board");
-    board.fillBoard(4, 4) ;
+    Text titleText(font, "Score Screen", static_cast<int>(windowHeight * 0.08f), sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
 
     // Game loop
     while (window.isOpen()) {
@@ -622,22 +736,131 @@ void gameScreen(sf::RenderWindow& window, Settings &userSettings) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            else if (event.type == sf::Event::MouseWheelScrolled) {
+                if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+                    int delta = event.mouseWheelScroll.delta;
+                    if (delta > 0 && scrollOffset > 0) {
+                        scrollOffset--;
+                    }
+                    else if (delta < 0 && scrollOffset + visibleLines < wordVector.size()) {
+                        scrollOffset++;
+                    }
 
-            if (event.type == sf::Event::MouseButtonPressed) {
+                    stringstream ss;
+                    for (unsigned int i = scrollOffset; i < scrollOffset + visibleLines && i < wordVector.size(); ++i) {
+                        ss << wordVector[i] << "\n";
+                    }
+                    text.setString(ss.str());
+                }
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+                    if (slider.getGlobalBounds().contains(mousePos)) {
+                        isDraggingSlider = true;
+                        sliderDragOffset = mousePos - slider.getPosition();
+                    }
+                }
+            }
+            else if (event.type == sf::Event::MouseButtonReleased) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    isDraggingSlider = false;
+                }
+            }
+            else if (event.type == sf::Event::MouseMoved) {
+                if (isDraggingSlider) {
+                    sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+                    float sliderY = mousePos.y - sliderDragOffset.y;
+                    float maxSliderY = textBox.getPosition().y + textBox.getSize().y - slider.getSize().y;
+                    float minSliderY = textBox.getPosition().y;
+                    sliderY = max(minSliderY, min(maxSliderY, sliderY));
+                    slider.setPosition(slider.getPosition().x, sliderY);
+
+                    float contentHeight = text.getLocalBounds().height;
+                    float textBoxHeight = textBox.getSize().y;
+                    float sliderPosition = (slider.getPosition().y - textBox.getPosition().y) / (textBoxHeight - slider.getSize().y);
+                    scrollOffset = static_cast<unsigned int>(sliderPosition * (wordVector.size() - visibleLines));
+
+                    stringstream ss;
+                    for (unsigned int i = scrollOffset; i < scrollOffset + visibleLines && i < wordVector.size(); ++i) {
+                        ss << wordVector[i] << "\n";
+                    }
+                    text.setString(ss.str());
                 }
             }
         }
 
-        window.clear();
+        float contentHeight = text.getLocalBounds().height;
+        float textBoxHeight = textBox.getSize().y;
+        float fixedSliderHeight = 100.f; // Set your desired fixed slider height here
+        float sliderPosition = (scrollOffset / static_cast<float>(wordVector.size() - visibleLines)) * (textBoxHeight - fixedSliderHeight);
 
+        slider.setSize(sf::Vector2f(20.f, fixedSliderHeight));
+        slider.setPosition(textBox.getPosition().x + textBox.getSize().x - slider.getSize().x - 5.f, textBox.getPosition().y + sliderPosition);
+
+        // Render the score screen
+        window.clear(sf::Color::White);
         titleText.render(window);
-        board.render(&window);
-        
+        window.draw(textBox);
+        window.draw(text);
+        window.draw(slider);
+        window.draw(scoreBox);
+        window.draw(scoreText);
         window.display();
     }
 }
 
+vector<string> filterValidWords(const vector<string>& words, const string& validWordsFile) {
+    set<string> validWords;  // Use a set to store the unique valid words
+
+    ifstream file(validWordsFile);
+    if (!file.is_open()) {
+        cout << "Failed to open valid words file." << endl;
+        return vector<string>();  // Return an empty vector
+    }
+
+    string line;
+    while (getline(file, line)) {
+        // Convert the line to lowercase for case-insensitive comparison
+        transform(line.begin(), line.end(), line.begin(), ::tolower);
+
+        // Remove any trailing whitespace
+        line.erase(find_if(line.rbegin(), line.rend(), [](unsigned char ch) {
+            return !isspace(ch);
+        }).base(), line.end());
+
+        validWords.insert(line);  // Insert the word into the set
+    }
+
+    file.close();
+
+    // Filter the input words based on the valid words set
+    vector<string> filteredWords;
+    for (const string& word : words) {
+        string lowercaseWord = word;
+        transform(lowercaseWord.begin(), lowercaseWord.end(), lowercaseWord.begin(), ::tolower);
+
+        if (validWords.find(lowercaseWord) != validWords.end()) {
+            filteredWords.push_back(word);
+        }
+    }
+
+    // Remove duplicates from the filtered words vector
+    filteredWords.erase(unique(filteredWords.begin(), filteredWords.end()), filteredWords.end());
+
+    return filteredWords;
+}
+
+int calculateTotalScore(const vector<string>& words) {
+    int totalScore = 0;
+
+    for (const string& word : words) {
+        int wordScore = calculatePoints(word);
+        totalScore += wordScore;
+    }
+
+    return totalScore;
+}
 
 int main() {
     //promptAndCalculatePoints();
