@@ -65,8 +65,17 @@ Overall, the UML Class diagram provides a clear visualization of the key classes
 
 ## SOLID Class Diagram
 ![SOLID Class Diagram](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/SOLID_diagram2.png)
-In this class diagram we mostly applied the Open-Closed Principle (OCP) part of solid, a bit of 
-Dependency Inversion Principle (DIP), and also the Interface Segregation Principle (ISP). This can be seen with the change by having the abstract Word class that word checker and dictionary inherit off of. The change now allows us to better organize the functions we will need to write and not need to have duplicate functions over classes. We will implement this change in our next sprint.
+The given class diagram adheres to several SOLID design principles. It incorporates the Open-Closed Principle (OCP) by introducing the abstract Word class, enabling easy extension without modifying existing code. This promotes code reusability and simplifies the addition of new word-related functionality.
+
+Additionally, the Dependency Inversion Principle (DIP) is implied through the Word class acting as an abstraction, allowing the word checker and dictionary classes to depend on it rather than specific implementations. This promotes flexibility, decouples modules, and enhances maintainability.
+
+The Interface Segregation Principle (ISP) is applied by segregating word-related functions into the Word class. This prevents clients from depending on unnecessary interfaces and ensures that each class has access to the specific functions it requires, enhancing code clarity and reducing dependencies.
+
+Furthermore, the dictionary class exemplifies the Single Responsibility Principle (SRP) by having a sole responsibility of managing word storage and point validation. This focused responsibility enhances code organization and maintainability, enabling other components to rely on the dictionary class without worrying about its internal implementation.
+
+The Liskov Substitution Principle (LSP) is also observed in the class diagram through the inheritance relationship between the wordScorer and Calculator classes. This principle allows wordScorer to be substituted for an instance of Calculator without impacting the correctness of the program, enabling interchangeability and facilitating code reuse.
+
+By incorporating these SOLID principles, the class diagram promotes modularity, extensibility, reusability, and maintainability. It provides a solid foundation for future enhancements and modifications, ensuring a more flexible and robust codebase.
  
  > ## Final deliverable
  > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
