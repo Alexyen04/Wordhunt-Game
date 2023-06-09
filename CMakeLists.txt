@@ -3,6 +3,8 @@ project(WordHunt CXX)
 
 find_package(SFML 2.5.1 REQUIRED COMPONENTS graphics)
 
+ADD_SUBDIRECTORY(googletest)
+
 add_executable(WordHunt 
     main.cpp 
     src/ButtonCustom.cpp 
@@ -22,5 +24,14 @@ add_executable(WordHunt
     src/BoardRenderer.cpp
 )
 
-target_link_libraries(WordHunt PRIVATE sfml-graphics sfml-window sfml-system)
+add_executable(test
+    tests/test.cpp
+    src/CustomWordList.cpp
+    src/Settings.cpp
+)
+
+TARGET_LINK_LIBRARIES(test gtest)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
+
+target_link_libraries(WordHunt PRIVATE sfml-graphics)
 target_compile_features(WordHunt PRIVATE cxx_std_17)
