@@ -165,9 +165,9 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Vector2f scoreMultiplierPosition = sf::Vector2f(windowSize.x * 0.05f, windowSize.y * 0.817f);
 
     sf::Vector2f hintPosition = sf::Vector2f(windowSize.x * 0.67f, windowSize.y * 0.22f);
-    sf::Vector2f timerPosition = sf::Vector2f(windowSize.x * 0.59f, windowSize.y * 0.366f);
+    sf::Vector2f timerPosition = sf::Vector2f(windowSize.x * 0.577f, windowSize.y * 0.366f);
     sf::Vector2f powerupPosition = sf::Vector2f(windowSize.x * 0.6f, windowSize.y * 0.516f);
-    sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.665f);
+    sf::Vector2f wordListPosition = sf::Vector2f(windowSize.x * 0.61f, windowSize.y * 0.665f);
     sf::Vector2f backPosition = sf::Vector2f(windowSize.x * 0.675f, windowSize.y * 0.817f);
 
     Text titleText(font, "Settings", 120, sf::Color::White, sf::Color::Black, 6.0f, titlePosition);
@@ -207,11 +207,11 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     string powerupButtonText = userSettings.arePowerupsEnabled() ? "On" : "Off";
 
     // Create buttons using the Button class
-    ButtonCustom hintButton(1140, 300, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
-    ButtonCustom soundeffectButton(400, 523, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
-    ButtonCustom scoreMultiplierButton(430, 1200, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
-    ButtonCustom powerupButton(1140, 750, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
-    ButtonCustom backButton(1140, 1200, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
+    ButtonCustom hintButton(1140, 290, 325, 100, font, hintButtonText, hintButtonColor, hintButtonColor, hintButtonColor);
+    ButtonCustom soundeffectButton(400, 510, 325, 100, font, soundButtonText, soundButtonColor , soundButtonColor, soundButtonColor);
+    ButtonCustom scoreMultiplierButton(430, 1185, 325, 100, font, scoreMultiplierButtonText, scoreMultiplierButtonColor, scoreMultiplierButtonColor, scoreMultiplierButtonColor);
+    ButtonCustom powerupButton(1140, 740, 325, 100, font, powerupButtonText, powerupButtonColor, powerupButtonColor, powerupButtonColor);
+    ButtonCustom backButton(1140, 1185, 325, 100, font, "<-", sf::Color::White, sf::Color::White, sf::Color(70, 70, 70, 200));
 
     ButtonRenderer hintButtonRenderer(hintButton);
     ButtonRenderer soundeffectButtonRenderer(soundeffectButton);
@@ -222,7 +222,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     //Create slider
     sf::RectangleShape soundSlider(sf::Vector2f(200, 20));
     soundSlider.setFillColor(sf::Color::White);
-    soundSlider.setPosition(windowSize.x * 0.215f, windowSize.y * 0.52f);
+    soundSlider.setPosition(windowSize.x * 0.20, windowSize.y * 0.52f);
 
     // Slider handle properties
     sf::RectangleShape soundHandle(sf::Vector2f(20, 40));
@@ -231,7 +231,7 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
 
     sf::Text valueText("", font, 30);
     valueText.setFillColor(sf::Color::White);
-    valueText.setPosition(windowSize.x * 0.271f, windowSize.y * 0.538f);
+    valueText.setPosition(windowSize.x * 0.255, windowSize.y * 0.538f);
 
     float sliderMin = soundSlider.getPosition().x;
     float sliderMax = soundSlider.getPosition().x + soundSlider.getSize().x;
@@ -255,11 +255,11 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     sf::Text limitInputText("", font, 40);
     limitInputText.setFillColor(sf::Color::Black);
     limitInputText.setString(userSettings.getWordLimit());
-    limitInputText.setPosition(windowSize.x * 0.215, windowSize.y * 0.6672f);
+    limitInputText.setPosition(windowSize.x * 0.219, windowSize.y * 0.6672f);
 
     sf::Text customInputText("", font, 40);
     customInputText.setFillColor(sf::Color::Black);
-    customInputText.setPosition(windowSize.x * 0.755f, windowSize.y * 0.6672f);
+    customInputText.setPosition(windowSize.x * 0.758f, windowSize.y * 0.6672f);
 
     sf::RectangleShape timerBox;
     timerBox.setSize(sf::Vector2f(250.0f, 45.0f));
@@ -280,14 +280,14 @@ void settingScreen(sf::RenderWindow& window, Settings &userSettings) {
     wordLimitBox.setFillColor(sf::Color::White);
     wordLimitBox.setOutlineColor(sf::Color::Black);
     wordLimitBox.setOutlineThickness(1.0f);
-    wordLimitBox.setPosition(windowSize.x * 0.215f, windowSize.y * 0.6672f);
+    wordLimitBox.setPosition(windowSize.x * 0.219f, windowSize.y * 0.6672f);
 
     sf::RectangleShape customBox;
     customBox.setSize(sf::Vector2f(250.0f, 45.0f));
     customBox.setFillColor(sf::Color::White);
     customBox.setOutlineColor(sf::Color::Black);
     customBox.setOutlineThickness(1.0f);
-    customBox.setPosition(windowSize.x * 0.755f, windowSize.y * 0.6672f);
+    customBox.setPosition(windowSize.x * 0.758f, windowSize.y * 0.6672f);
 
     sf::RectangleShape timeCursor;
     timeCursor.setSize(sf::Vector2f(2.0f, 40.0f));
