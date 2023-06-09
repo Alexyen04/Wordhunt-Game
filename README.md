@@ -111,4 +111,22 @@ By incorporating these SOLID principles, the class diagram promotes modularity, 
     Process 81531: 24936 nodes malloced for 6034 KB
     Process 81531: 0 leaks for 0 total leaked bytes."
 This successfully shows that we have no memory leaks in our project even without using Valgrind.
+
+ ![Tests](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/Tests.png)
+ To begin testing your code with Google Test, the first step is to import the necessary headers from the framework. Typically, you would include the gtest/gtest.h header file to access the main testing functionality provided by Google Test.
+
+Once you have imported Google Test, you can organize your tests in a structured manner. It is recommended to group your tests based on the classes or modules you want to test. Each group can be represented by a separate test file or a test fixture.
+
+Test fixtures are particularly useful when you have common setup or teardown code that multiple tests share. A test fixture is a class that inherits from ::testing::Test and allows you to define reusable setup and teardown methods. By creating instances of your classes and performing common initialization in the fixture's setup method, you can ensure consistency across multiple tests.
+
+Next, it's time to write test cases for each class or module you want to test. Test cases cover different scenarios and exercise various functions and methods. Consider testing both normal and edge cases to ensure your code behaves correctly in different situations.
+
+Within your test cases, you can use the ASSERT and EXPECT macros provided by Google Test to check for expected results and conditions. For example, ASSERT_EQ can be used to check if two values are equal, EXPECT_TRUE can verify if a certain condition is true, and EXPECT_THROW can ensure that an exception is thrown under specific circumstances.
+
+Make sure to test each function in your classes and verify that they are producing the expected output. Use the appropriate ASSERT or EXPECT macros to check if the actual output matches the expected output.
+
+To execute your tests, you need to build the test executable. Run the cmake . command to generate the necessary build files, and then use make to compile the test code and create the test executable. Once the executable is generated, you can run ./test to execute the tests and see the results.
+
+By following these steps and guidelines, you can enhance your testing process using Google Test. Thorough testing ensures that your code is functioning correctly and can help identify and fix issues early in the development cycle.
+
  
