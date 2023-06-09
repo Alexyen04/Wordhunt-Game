@@ -17,6 +17,7 @@
 #include "include/WordScorer.h"
 #include "include/DefaultWordScorer.h"
 #include "include/WordScoreCalculator.h"
+#include "include/BoardRenderer.h"
 
 using namespace std;
 
@@ -645,6 +646,8 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
     string boardDimensions = userSettings.getDimensions();
     unsigned int boardDimensionInt = stoul(boardDimensions);
     Board board(boardDimensionInt);
+    BoardRenderer boardRend(board);
+
     board.initializeRandomLetters();
 
     // Game loop
@@ -675,8 +678,9 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
 
         window.clear();
 
-        board.render(window); // Implement the render function for your Board class
-
+        //board.render(window); // Implement the render function for your Board class
+        boardRend.render(window);
+        
         window.display();
     }
 
@@ -725,6 +729,7 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
     WordScoreCalculator wordScoreCalculator(*defaultWordScorer);  // Pass the DefaultWordScorer instance to WordScoreCalculator constructor
     int score = wordScoreCalculator.calculateTotalScore(wordVector);
 
+    delete defaultWordScorer;
 
     string scoreString = to_string(score);
     scoreText.setString(scoreString);

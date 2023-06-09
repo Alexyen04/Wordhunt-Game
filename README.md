@@ -85,9 +85,30 @@ By incorporating these SOLID principles, the class diagram promotes modularity, 
  > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ ![Title_Screen](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/TitleScreen.png)
+ 
+ ![Settings](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/Settings.png)
+ 
+ ![Board](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/Board.png)
+ 
+ ![Modified_Board](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/ModifiedBoard.png)
+ 
+ ![Score_Screen](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/ScoreScreen.png) 
+
  ## Installation/Usage
- > Instructions on installing and running your application
+ 1. Copy Repository Link from GitHub
+ 2. Clone Repository into VS Code
+ 3. Run Cmake . and make
+ 4. Run the executable "./WordHunt"
+ 5. Click on settings and change to their liking
+ 6. Press play to run the game
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+ Due to the server being unable to accommodate for the SFML library that we used, we had to construct our project off the server. This meant that we were not able to run Valgrind, a crucial test to check for memory leaks in our program. However, we used a built in ARM command called "Leaks" that is run on the executable generated from our program to check if there are leaks. To run it, you do:
+ 
+  "leaks --atExit -- ./WordHunt"
+  After running this command, we were given this output:
+  " leaks Report Version: 4.0
+    Process 81531: 24936 nodes malloced for 6034 KB
+    Process 81531: 0 leaks for 0 total leaked bytes."
+This successfully shows that we have no memory leaks in our project even without using Valgrind.
  
