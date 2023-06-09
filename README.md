@@ -104,10 +104,10 @@ By incorporating these SOLID principles, the class diagram promotes modularity, 
  6. Press play to run the game
  ## Testing
  Due to the server being unable to accommodate for the SFML library that we used, we had to construct our project off the server. This meant that we were not able to run Valgrind, a crucial test to check for memory leaks in our program. However, we used a built in ARM command called "Leaks" that is run on the executable generated from our program to check if there are leaks. To run it, you do:
- > "leaks --atExit -- ./WordHunt"
- > After running this command, we were given this output:
- > " leaks Report Version: 4.0
- > Process 81531: 24936 nodes malloced for 6034 KB
- > Process 81531: 0 leaks for 0 total leaked bytes."
+  "leaks --atExit -- ./WordHunt"
+  After running this command, we were given this output:
+  " leaks Report Version: 4.0
+  Process 81531: 24936 nodes malloced for 6034 KB
+  Process 81531: 0 leaks for 0 total leaked bytes."
 This successfully shows that we have no memory leaks in our project even without using Valgrind.
  
