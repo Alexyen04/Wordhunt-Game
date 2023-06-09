@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <random>
 #include <vector>
-#include "piece.h"
+#include "Piece.h"
 
 class Board {
 public:
