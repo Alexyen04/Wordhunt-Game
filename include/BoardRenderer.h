@@ -2,7 +2,7 @@
 #define BOARD_RENDERER_H
 
 #include <SFML/Graphics.hpp>
-#include "piece.h"
+#include "Piece.h"
 #include "Board.h"
 
 class Board;

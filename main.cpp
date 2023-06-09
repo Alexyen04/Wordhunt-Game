@@ -10,7 +10,7 @@
 #include "include/ButtonRenderer.h"
 #include "include/Dictionary.h"
 #include "include/Board.h"
-#include "include/piece.h"
+#include "include/Piece.h"
 #include "include/Text.h"
 #include "include/TextRenderer.h"
 #include "include/Settings.h"
@@ -729,6 +729,7 @@ void scoreScreen(sf::RenderWindow& window, Settings& userSettings, Board& board)
     WordScoreCalculator wordScoreCalculator(*defaultWordScorer);  // Pass the DefaultWordScorer instance to WordScoreCalculator constructor
     int score = wordScoreCalculator.calculateTotalScore(wordVector);
 
+    delete defaultWordScorer;
 
     string scoreString = to_string(score);
     scoreText.setString(scoreString);

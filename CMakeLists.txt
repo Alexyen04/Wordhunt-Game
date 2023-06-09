@@ -22,5 +22,5 @@ add_executable(WordHunt
     src/BoardRenderer.cpp
 )
 
-target_link_libraries(WordHunt PRIVATE sfml-graphics)
+target_link_libraries(WordHunt PRIVATE sfml-graphics sfml-window sfml-system)
 target_compile_features(WordHunt PRIVATE cxx_std_17)
