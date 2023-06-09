@@ -112,6 +112,7 @@ By incorporating these SOLID principles, the class diagram promotes modularity, 
     Process 81531: 0 leaks for 0 total leaked bytes."
 This successfully shows that we have no memory leaks in our project even without using Valgrind.
 
+
  ![Tests](https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015/blob/master/Images/Tests.png)
  To begin testing your code with Google Test, the first step is to import the necessary headers from the framework. Typically, you would include the gtest/gtest.h header file to access the main testing functionality provided by Google Test.
 
@@ -126,7 +127,5 @@ Within your test cases, you can use the ASSERT and EXPECT macros provided by Goo
 Make sure to test each function in your classes and verify that they are producing the expected output. Use the appropriate ASSERT or EXPECT macros to check if the actual output matches the expected output.
 
 To execute your tests, you need to build the test executable. Run the cmake . command to generate the necessary build files, and then use make to compile the test code and create the test executable. Once the executable is generated, you can run ./test to execute the tests and see the results.
-
-By following these steps and guidelines, you can enhance your testing process using Google Test. Thorough testing ensures that your code is functioning correctly and can help identify and fix issues early in the development cycle.
 
  
