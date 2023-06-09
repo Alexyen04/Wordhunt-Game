@@ -24,7 +24,6 @@ add_executable(WordHunt
     src/BoardRenderer.cpp
 )
 
-<<<<<<< HEAD
 add_executable(test
     tests/test.cpp
     src/CustomWordList.cpp
@@ -35,7 +34,4 @@ TARGET_LINK_LIBRARIES(test gtest)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
-=======
-target_link_libraries(WordHunt PRIVATE sfml-graphics sfml-window sfml-system)
->>>>>>> master
 target_compile_features(WordHunt PRIVATE cxx_std_17)
