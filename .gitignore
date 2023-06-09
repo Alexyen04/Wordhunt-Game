@@ -6,3 +6,8 @@ Makefile
 WordHunt
 .DS_Store
 testFile.txt
+
+googletest/
+lib/
+
+test
