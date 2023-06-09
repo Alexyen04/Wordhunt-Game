@@ -25,6 +25,8 @@ add_executable(WordHunt
 
 add_executable(test
     tests/test.cpp
+    src/CustomWordList.cpp
+    src/Settings.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
