@@ -9,7 +9,7 @@ Settings::Settings()
       dimensions("4"),
       soundPercent(50),
       wordLimit("17"),
-      time("60")
+      time("80")
 {
 }
 
