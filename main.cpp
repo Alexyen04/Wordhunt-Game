@@ -10,13 +10,14 @@
 #include "include/ButtonRenderer.h"
 #include "include/Dictionary.h"
 #include "include/Board.h"
-#include "include/Piece.h"
+#include "include/piece.h"
 #include "include/Text.h"
 #include "include/TextRenderer.h"
 #include "include/Settings.h"
 #include "include/WordScorer.h"
 #include "include/DefaultWordScorer.h"
 #include "include/WordScoreCalculator.h"
+#include "include/BoardRenderer.h"
 
 using namespace std;
 
@@ -645,6 +646,8 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
     string boardDimensions = userSettings.getDimensions();
     unsigned int boardDimensionInt = stoul(boardDimensions);
     Board board(boardDimensionInt);
+    BoardRenderer boardRend(board);
+
     board.initializeRandomLetters();
 
     // Game loop
@@ -675,8 +678,9 @@ void gameScreen(sf::RenderWindow& window, Settings& userSettings)
 
         window.clear();
 
-        board.render(window); // Implement the render function for your Board class
-
+        //board.render(window); // Implement the render function for your Board class
+        boardRend.render(window);
+        
         window.display();
     }
 

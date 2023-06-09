@@ -6,7 +6,8 @@
 #include <unordered_map>
 #include <random>
 #include <vector>
-#include "Piece.h"
+
+#include "piece.h"
 
 class Board {
 public:
@@ -17,6 +18,10 @@ public:
     void render(sf::RenderTarget& target) const;
     void printWord();
     std::vector<std::string> getWordList() { return wordList; }
+    
+    const sf::RectangleShape& getBoardShape() const;         
+    const std::vector<Piece>& getPieces() const;  
+    const std::vector<bool>& getPieceSelected() const; 
 
 private:
     unsigned int dimensions;

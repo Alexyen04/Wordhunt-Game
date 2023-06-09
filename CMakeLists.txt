@@ -19,6 +19,7 @@ add_executable(WordHunt
     src/TextRenderer.cpp
     src/Text.cpp
     src/Slider.cpp
+    src/BoardRenderer.cpp
 )
 
 target_link_libraries(WordHunt PRIVATE sfml-graphics)
