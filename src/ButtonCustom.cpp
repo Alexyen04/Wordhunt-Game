@@ -97,7 +97,9 @@ void ButtonCustom::setText(const std::string& buttonText)
     float textX = centerX - textBounds.width / 2.0f;
     float textY = centerY - textBounds.height / 2.0f;
 
-    text.setPosition(sf::Vector2f(textX, textY));
+    // Adjust the text position based on the button's center
+    sf::Vector2f buttonCenter = shape.getPosition() + sf::Vector2f(shape.getSize().x / 2.0f, shape.getSize().y / 2.0f);
+    text.setPosition(buttonCenter - sf::Vector2f(textBounds.width / 2.0f, textBounds.height / 2.0f + 19.0f));
 }
 
 void ButtonCustom::setPosition(float x, float y)
@@ -113,8 +115,11 @@ void ButtonCustom::setPosition(float x, float y)
     float textX = centerX - textBounds.width / 2.0f;
     float textY = centerY - textBounds.height / 2.0f;
 
-    text.setPosition(sf::Vector2f(textX, textY));
+    // Adjust the text position based on the button's center
+    sf::Vector2f buttonCenter = shape.getPosition() + sf::Vector2f(shape.getSize().x / 2.0f, shape.getSize().y / 2.0f);
+    text.setPosition(buttonCenter - sf::Vector2f(textBounds.width / 2.0f, textBounds.height / 2.0f + 19.0f));
 }
+
 
 
 void ButtonCustom::setSize(float width, float height)
