@@ -5,13 +5,24 @@ ButtonCustom::ButtonCustom(float x, float y, float width, float height, const sf
     : buttonState(ButtonState::Idle), idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor)
 {
     shape.setPosition(sf::Vector2f(x, y));
-    shape.setSize(sf::Vector2f(width, height));
+    shape.setSize(sf::Vector2f(width, height * 1.3f));
 
     text.setString(buttonText);
     text.setFont(font);
     text.setCharacterSize(static_cast<unsigned int>(height * 0.8));
-    text.setPosition(sf::Vector2f(x, y));
+
+    // Calculate the center position of the button
+    float centerX = x + width / 2.0f;
+    float centerY = y + height / 2.0f;
+
+    // Calculate the position to center the text
+    sf::FloatRect textBounds = text.getLocalBounds();
+    float textX = centerX - textBounds.width / 2.0f;
+    float textY = centerY - textBounds.height / 2.0f;
+
+    text.setPosition(sf::Vector2f(textX, textY));
 }
+
 
 ButtonCustom::~ButtonCustom()
 {
@@ -76,14 +87,35 @@ sf::Text ButtonCustom::getText() const
 void ButtonCustom::setText(const std::string& buttonText)
 {
     text.setString(buttonText);
-    text.setPosition(shape.getPosition().x, shape.getPosition().y);
+
+    // Calculate the center position of the button
+    float centerX = shape.getPosition().x + shape.getSize().x / 2.0f;
+    float centerY = shape.getPosition().y + shape.getSize().y / 2.0f;
+
+    // Calculate the position to center the text
+    sf::FloatRect textBounds = text.getLocalBounds();
+    float textX = centerX - textBounds.width / 2.0f;
+    float textY = centerY - textBounds.height / 2.0f;
+
+    text.setPosition(sf::Vector2f(textX, textY));
 }
 
 void ButtonCustom::setPosition(float x, float y)
 {
     shape.setPosition(sf::Vector2f(x, y));
-    text.setPosition(sf::Vector2f(x, y));
+
+    // Calculate the center position of the button
+    float centerX = x + shape.getSize().x / 2.0f;
+    float centerY = y + shape.getSize().y / 2.0f;
+
+    // Calculate the position to center the text
+    sf::FloatRect textBounds = text.getLocalBounds();
+    float textX = centerX - textBounds.width / 2.0f;
+    float textY = centerY - textBounds.height / 2.0f;
+
+    text.setPosition(sf::Vector2f(textX, textY));
 }
+
 
 void ButtonCustom::setSize(float width, float height)
 {
