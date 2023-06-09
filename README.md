@@ -98,8 +98,20 @@ By incorporating these SOLID principles, the class diagram promotes modularity, 
  ## Installation/Usage
  1. Copy Repository Link from GitHub
  2. Clone Repository into VS Code
+    ```
+    git clone https://github.com/cs100/final-project-fsong009-mchen356-ayen019-sshak015.git
+    ```
  3. Run Cmake . and make
+    ```
+    cmake .
+    ```
+    ```
+    make
+    ```
  4. Run the executable "./WordHunt"
+    ```
+    ./WordHunt
+    ```
  5. Click on settings and change to their liking
  6. Press play to run the game
  ## Testing
@@ -119,10 +131,6 @@ This successfully shows that we have no memory leaks in our project even without
 Once you have imported Google Test, you can organize your tests in a structured manner. It is recommended to group your tests based on the classes or modules you want to test. Each group can be represented by a separate test file or a test fixture.
 
 Test fixtures are particularly useful when you have common setup or teardown code that multiple tests share. A test fixture is a class that inherits from ::testing::Test and allows you to define reusable setup and teardown methods. By creating instances of your classes and performing common initialization in the fixture's setup method, you can ensure consistency across multiple tests.
-
-Next, it's time to write test cases for each class or module you want to test. Test cases cover different scenarios and exercise various functions and methods. Consider testing both normal and edge cases to ensure your code behaves correctly in different situations.
-
-Within your test cases, you can use the ASSERT and EXPECT macros provided by Google Test to check for expected results and conditions. For example, ASSERT_EQ can be used to check if two values are equal, EXPECT_TRUE can verify if a certain condition is true, and EXPECT_THROW can ensure that an exception is thrown under specific circumstances.
 
 Make sure to test each function in your classes and verify that they are producing the expected output. Use the appropriate ASSERT or EXPECT macros to check if the actual output matches the expected output.
 
